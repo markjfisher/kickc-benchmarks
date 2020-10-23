@@ -9,3 +9,6 @@ void mode8();
 void mode4();
 void counterRow();
 void showScore();
+
+char convertAtasciiToCode(char const c);
+void strToCode(char *s);

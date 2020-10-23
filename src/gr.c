@@ -67,3 +67,25 @@ void showScore() {
 		sta DLIST+1
 	}
 }
+
+void strToCode(char *s) {
+	while(*s != 0) {
+		(*s)++ = convertAtasciiToCode(*s);
+	}
+}
+
+char convertAtasciiToCode(const char c) {
+	char register(A) c2 = c;
+	asm {
+			// Taken from cputc in cc65
+			asl
+			adc #$c0
+			bpl !+
+			eor #$40
+		!:  lsr
+			bcc !+
+			eor #$80
+		!:
+	}
+	return c2;
+}

@@ -2,6 +2,7 @@
 #pragma encoding(atascii)
 #pragma zp_reserve(0x00..0x7f)
 
+#include <stdlib.h>
 #include <atari-xl.h>
 #include "atari-system.h"
 #include "gr.h"
@@ -52,12 +53,19 @@ void prepareCounter(char *name) {
 	memset(counterLms, 0xfe, 0x28);
 	memset(counterLms, 0, 5);
 	
-	char *p = name;
-	while (*p != 0) {
-		if (*p == 0) *p = 0xfe;
+	char len = (char) strlen(name);
+	char *p = malloc(len);
+	kickasm {{ .break }}
+	while (*name != 0) {
+		char d = convertAtasciiToCode(*name);
+		if (d == 0) { d = 0xfe; }
+		*p = d;
 		p++;
+		name++;
 	}
-	memcpy(counterLms + 6, name, strlen(name));
+	// p has moved!!
+	memcpy(counterLms + 6, p - len, len);
+	free(p);
 }
 
 void counterPrint() {

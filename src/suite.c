@@ -15,6 +15,7 @@
 
 void main() {
 	initSuite();
+	waitFrames(10);
 
 	// run each benchmark
 	runBsort();
