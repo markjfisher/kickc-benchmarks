@@ -12,6 +12,7 @@
 
 // Now the suite programs
 #include "bsort.h"
+#include "chessboard.h"
 
 void main() {
 	initSuite();
@@ -19,7 +20,7 @@ void main() {
 
 	// run each benchmark
 	runBsort();
-	
+	runChessboard();
 
 	// Finally...
 	showScore();

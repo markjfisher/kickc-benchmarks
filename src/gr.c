@@ -11,9 +11,10 @@ char dl8[] = kickasm(
 	) {{
 	.byte $f0, $70, $70
 	.byte $42, counterLms, $00
-	.byte $f0, <lms, >lms
+	.byte $f0
+	.byte $4f, <lms, >lms
 	.fill 101, $0f
-	.byte $4f,0, (<lms) + $10
+	.byte $4f, 0, (>lms) + $10
 	.fill 89, $0f
 	.byte $41, <dl8, >dl8
 	}};
@@ -68,7 +69,7 @@ void showScore() {
 	}
 }
 
-void strToCode(char * const s) {
+char * strToCode(char * const s) {
 	char *p = s;
 	while(*p != 0) {
 		char c = convertAtasciiToCode(*p);
@@ -76,6 +77,7 @@ void strToCode(char * const s) {
 		*p = c;
 		p++;
 	}
+	return s;
 }
 
 char convertAtasciiToCode(char c) {

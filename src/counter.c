@@ -1,7 +1,3 @@
-#pragma target(atarixl)
-#pragma encoding(atascii)
-#pragma zp_reserve(0x00..0x7f)
-
 #include <stdlib.h>
 #include <atari-xl.h>
 #include "atari-system.h"
@@ -57,10 +53,20 @@ void prepareCounter(char *name) {
 
 void counterPrint() {
 	char *position = currentPrintPosition;
-	memcpy(position, benchName, strlen(benchName));
+	
+	// fix the 0xfe / space issue... weird string stuff.
+	char len = (char) strlen(benchName);
+	for (char i = 0; i<len; i++) {
+		if (*(benchName + i) == 0xfe) *(benchName + i) = 0;
+	}
+	memcpy(position, benchName, len);
 	position += 26;
 	for(char i: 0..4) {
 		*(position + i) = *(counterLms + i) + 16;
 	}
 	currentPrintPosition += 40;
+}
+
+void counterOverwrite() {
+	memcpy(counterLms, counterLms + 0x23, 5);
 }

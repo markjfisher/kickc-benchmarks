@@ -10,4 +10,4 @@ void mode4();
 void counterRow();
 void showScore();
 
-void strToCode(char * const s);
+char * strToCode(char * const s);

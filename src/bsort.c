@@ -1,5 +1,3 @@
-#pragma encoding(atascii)
-
 #include <atari-xl.h>
 #include "counter.h"
 #include "gr.h"
