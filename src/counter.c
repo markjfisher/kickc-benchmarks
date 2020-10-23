@@ -39,8 +39,7 @@ void initCounter() {
 	memcpy(charset + 0x400, charset, 0x400);
 	memcpy(charset + 0x400, charset + 0x80, 80); // feels like this should be 0x80
 	for(char i: 0..7) {
-		char * a = charset + 0x800 - 8 + i;
-		*a = *(charset + 0x80 + i) ^ 0xff;
+		*(charset + 0x800 - 8 + i) = *(charset + 0x80 + i) ^ 0xff;
 	}
 	memset(charset + 0x800 - 0x10, 0xff, 8);
 }
@@ -49,23 +48,11 @@ void prepareCounter(char *name) {
 	waitFrame();
 	counterRow();
 	*CHBASE = >(charset + 0x400);
+	strToCode(name);
 	benchName = name;
 	memset(counterLms, 0xfe, 0x28);
 	memset(counterLms, 0, 5);
-	
-	char len = (char) strlen(name);
-	char *p = malloc(len);
-	kickasm {{ .break }}
-	while (*name != 0) {
-		char d = convertAtasciiToCode(*name);
-		if (d == 0) { d = 0xfe; }
-		*p = d;
-		p++;
-		name++;
-	}
-	// p has moved!!
-	memcpy(counterLms + 6, p - len, len);
-	free(p);
+	memcpy(counterLms + 6, name, strlen(name));
 }
 
 void counterPrint() {
@@ -73,8 +60,7 @@ void counterPrint() {
 	memcpy(position, benchName, strlen(benchName));
 	position += 26;
 	for(char i: 0..4) {
-		char * a = position + i;
-		*a = *(counterLms + i) + 16;
+		*(position + i) = *(counterLms + i) + 16;
 	}
 	currentPrintPosition += 40;
 }

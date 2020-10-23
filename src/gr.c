@@ -68,24 +68,20 @@ void showScore() {
 	}
 }
 
-void strToCode(char *s) {
-	while(*s != 0) {
-		(*s)++ = convertAtasciiToCode(*s);
+void strToCode(char * const s) {
+	char *p = s;
+	while(*p != 0) {
+		char c = convertAtasciiToCode(*p);
+		if (c == 0) c = 0xfe;
+		*p = c;
+		p++;
 	}
 }
 
-char convertAtasciiToCode(const char c) {
-	char register(A) c2 = c;
-	asm {
-			// Taken from cputc in cc65
-			asl
-			adc #$c0
-			bpl !+
-			eor #$40
-		!:  lsr
-			bcc !+
-			eor #$80
-		!:
-	}
-	return c2;
+char convertAtasciiToCode(char c) {
+	char inverseBit = c & 0x80;
+	char noInverse  = c & 0x7f;
+	if      (noInverse < 0x20) noInverse += 0x40;
+	else if (noInverse < 0x60) noInverse -= 0x20;
+	return noInverse | inverseBit;
 }
