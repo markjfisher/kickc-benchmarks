@@ -9,14 +9,12 @@ void runChessboard() {
 	counterOn(1);
 	benchmarkChessboard();
 	counterOn(0);
-	waitFrames(5);
 	counterOverwrite();
 	counterPrint();
 }
 
 void benchmarkChessboard() {
 	mode8();
-	
 	memset(counterLms + 0x23, 0, 5);
 
 	char *c1 = counterLms + 0x25;

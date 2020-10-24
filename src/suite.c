@@ -14,15 +14,19 @@
 #include "bsort.h"
 #include "chessboard.h"
 #include "landscape.h"
+#include "lipsum.h"
+#include "qr1d.h"
 
 void main() {
 	initSuite();
 	waitFrames(10);
 
 	// run each benchmark
-	//runBsort();
-	//runChessboard();
 	runLandscape();
+	runChessboard();
+	// runLipsum();
+	runQR1d();
+	runBsort();
 
 	// Finally...
 	showScore();

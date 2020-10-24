@@ -10,4 +10,6 @@ void mode4();
 void counterRow();
 void showScore();
 
-char * strToCode(char * const s);
+char * strToCode(char *s);
+char convertCodeToAtascii(char c);
+char convertAtasciiToCode(char c);

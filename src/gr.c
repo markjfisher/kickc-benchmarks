@@ -19,6 +19,19 @@ char dl8[] = kickasm(
 	.byte $41, <dl8, >dl8
 	}};
 
+char dl4[] = kickasm(
+		uses lms,
+		uses dl4,
+		uses counterLms
+	) {{
+	.byte $70, $70, $70
+	.byte $42, counterLms, $00
+	.byte $70
+	.byte $49, <lms, >lms
+	.fill 34, $09
+	.byte $41, <dl4, >dl4
+	}};
+
 char dlCounter[] = kickasm(
 		uses counterLms,
 		uses dlCounter
@@ -47,7 +60,14 @@ void mode8() {
 	}
 }
 
-void mode4() {}
+void mode4() {
+	asm {
+		lda #<dl4
+		sta DLIST
+		lda #>dl4
+		sta DLIST+1
+	}
+}
 
 void counterRow() {
 	asm {
@@ -69,7 +89,7 @@ void showScore() {
 	}
 }
 
-char * strToCode(char * const s) {
+char * strToCode(char *s) {
 	char *p = s;
 	while(*p != 0) {
 		char c = convertAtasciiToCode(*p);
@@ -78,6 +98,14 @@ char * strToCode(char * const s) {
 		p++;
 	}
 	return s;
+}
+
+char convertCodeToAtascii(char c) {
+	char inverseBit = c & 0x80;
+	char noInverse  = c & 0x7f;
+	if      (noInverse < 0x40) noInverse += 0x20;
+	else if (noInverse < 0x60) noInverse -= 0x40;
+	return noInverse | inverseBit;
 }
 
 char convertAtasciiToCode(char c) {
