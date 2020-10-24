@@ -13,6 +13,7 @@
 // Now the suite programs
 #include "bsort.h"
 #include "chessboard.h"
+#include "landscape.h"
 
 void main() {
 	initSuite();
@@ -21,6 +22,7 @@ void main() {
 	// run each benchmark
 	runBsort();
 	runChessboard();
+	runLandscape();
 
 	// Finally...
 	showScore();

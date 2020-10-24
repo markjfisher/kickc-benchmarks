@@ -5,6 +5,17 @@
 // (1/60 second = 1 jiffy) until it reaches #0xFF, then increments 0x13, etc.
 char * const RTCLOK = 0x12;
 
+// (W) Priority selection register. PRIOR establishes which objects
+// on the screen (players, missiles, and playfields) will be in front of
+// other objects.
+char * const PRIOR = 0xD01B;
+
+// When this location is read, it acts as a random number
+// generator. It reads the high order eight bits of the 17 bit
+// polynomial counter (nine bit if BIT 7 of AUDCTL is set) for the
+// value of the number.
+char * const RANDOM = 0xD20A;
+
 // POKE with zero, and VBLANK and system clock are disabled, and shadowing is suspended
 char * const NMIEN = 0xD40E;
 
