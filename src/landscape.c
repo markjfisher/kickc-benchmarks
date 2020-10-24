@@ -28,19 +28,19 @@ void benchmarkLandscape() {
 	for(char z: 0..9) {
 		memcpy(colHeight, landscapeBase, 14);
 		for (signed char x = 39; x >= 0; x--) {
-			for (char i: 0..1) {
+			for (signed char i = 1; i >= 0; i--) {
 				char *screenAddress = lms + x;
 				char start = 0;
 				for (signed char c = 13; c >= 0; c--) {
 					char uc = (char) c;
 					char stop = colHeight[uc];
 					if (start > stop) {
-						word startStopDiff = (start - stop) * 40;
-						screenAddress -= startStopDiff;
+						// Need a word here else it overflows
+						screenAddress -= ((word) (start - stop) * 40);
 						stop = start;
 						start = colHeight[uc];
 					}
-					if (i == 0) {
+					if (i == 1) {
 						while (start < stop) {
 							*screenAddress = uc;
 							screenAddress += 40;
@@ -48,19 +48,15 @@ void benchmarkLandscape() {
 						}
 					} else {
 						while (start < stop) {
-							char andF = (*screenAddress) & 0xf;
-							char newVal = andF | (uc << 4);
-							*screenAddress = newVal;
+							*screenAddress = ((*screenAddress) & 0xf) | (uc << 4);
 							screenAddress += 40;
 							start++;
 						}
 					}
 					
 					start = stop;
-					char r1 = (*RANDOM) & 0x1;
-					char r2 = (*RANDOM) & 0x1;
-					if (r1 == 0) { colHeight[uc]--; }
-					if (r2 == 0) { colHeight[uc]++; }
+					if (((*RANDOM) & 0x1) == 0) { colHeight[uc]--; }
+					if (((*RANDOM) & 0x1) == 0) { colHeight[uc]++; }
 				}
 			}
 		}

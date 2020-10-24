@@ -20,8 +20,8 @@ void main() {
 	waitFrames(10);
 
 	// run each benchmark
-	runBsort();
-	runChessboard();
+	//runBsort();
+	//runChessboard();
 	runLandscape();
 
 	// Finally...
