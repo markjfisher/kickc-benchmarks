@@ -20,6 +20,7 @@
 #include "countdownWhile.h"
 #include "sieve1028.h"
 #include "sieve1899.h"
+#include "montecarlo.h"
 
 void main() {
 	initSuite();
@@ -34,6 +35,7 @@ void main() {
 	runSieve1028();
 	runSieve1899();
 	runBsort();
+	runMontecarlo();
 
 	// Finally...
 	showScore();
