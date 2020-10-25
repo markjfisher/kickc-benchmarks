@@ -26,6 +26,7 @@ void main() {
 	initSuite();
 
 	// run each benchmark
+	runMontecarlo();
 	runLandscape();
 	runChessboard();
 	// runLipsum();
@@ -35,7 +36,6 @@ void main() {
 	runSieve1028();
 	runSieve1899();
 	runBsort();
-	runMontecarlo();
 
 	// Finally...
 	showScore();
