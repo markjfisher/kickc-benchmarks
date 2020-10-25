@@ -1,3 +1,7 @@
+#pragma target(atarixl)
+#pragma encoding(atascii)
+#pragma zp_reserve(0x00..0x7f)
+
 #include <atari-xl.h>
 #include "atari-system.h"
 #include "counter.h"
@@ -9,6 +13,7 @@ void runChessboard() {
 	counterOn(1);
 	benchmarkChessboard();
 	counterOn(0);
+	waitFrames(10);
 	counterOverwrite();
 	counterPrint();
 }

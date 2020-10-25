@@ -1,3 +1,7 @@
+#pragma target(atarixl)
+#pragma encoding(atascii)
+#pragma zp_reserve(0x00..0x7f)
+
 #include <atari-xl.h>
 #include "atari-system.h"
 #include "counter.h"
@@ -9,7 +13,7 @@ void runLandscape() {
 	counterOn(1);
 	benchmarkLandscape();
 	counterOn(0);
-	waitFrames(5);
+	waitFrames(10);
 	counterPrint();
 }
 
@@ -19,21 +23,28 @@ char landscapeBase[] = kickasm {{
 
 void benchmarkLandscape() {
 	char colHeight[14];
-
+	char z;
+	signed char x;
+	signed char i;
+	signed char c;
+	char uc;
+	char start;
+	char stop;
+	
 	enableDLI(&g9off);
 	mode8();
 	*PRIOR = 0x40;
 	GTIA->COLBK = 0xb0;
 
-	for(char z: 0..9) {
+	for(z: 0..9) {
 		memcpy(colHeight, landscapeBase, 14);
-		for (signed char x = 39; x >= 0; x--) {
-			for (signed char i = 1; i >= 0; i--) {
+		for (x = 39; x >= 0; x--) {
+			for (i = 1; i >= 0; i--) {
 				char *screenAddress = lms + x;
-				char start = 0;
-				for (signed char c = 13; c >= 0; c--) {
-					char uc = (char) c;
-					char stop = colHeight[uc];
+				start = 0;
+				for (c = 13; c >= 0; c--) {
+					uc = (char) c;
+					stop = colHeight[uc];
 					if (start > stop) {
 						// Need a word here else it overflows
 						screenAddress -= ((word) (start - stop) * 40);
@@ -63,6 +74,7 @@ void benchmarkLandscape() {
 	}
 	disableDLI();
 	*PRIOR = 0;
+	GTIA->COLBK = 0;
 }
 
 volatile char *pOn;

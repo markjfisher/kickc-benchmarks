@@ -1,10 +1,11 @@
+#pragma target(atarixl)
 #pragma encoding(atascii)
-#pragma zp_reserve($00..$7f)
+#pragma zp_reserve(0x00..0x7f)
 
 #include "gr.h"
 #include "atari-system.h"
 
-char dl8[] = kickasm(
+char align(0x400) dl8[] = kickasm(
 		uses lms,
 		uses dl8,
 		uses counterLms
@@ -19,7 +20,7 @@ char dl8[] = kickasm(
 	.byte $41, <dl8, >dl8
 	}};
 
-char dl4[] = kickasm(
+char align(0x400) dl4[] = kickasm(
 		uses lms,
 		uses dl4,
 		uses counterLms
@@ -32,7 +33,7 @@ char dl4[] = kickasm(
 	.byte $41, <dl4, >dl4
 	}};
 
-char dlCounter[] = kickasm(
+char align(0x400) dlCounter[] = kickasm(
 		uses counterLms,
 		uses dlCounter
 	) {{
@@ -41,7 +42,7 @@ char dlCounter[] = kickasm(
 	.byte $41, <dlCounter, >dlCounter
 	}};
 
-char dlScore[] = kickasm(
+char align(0x400) dlScore[] = kickasm(
 		uses scoreLms,
 		uses dlScore
 	) {{
@@ -80,19 +81,24 @@ void counterRow() {
 
 void showScore() {
 	waitFrame();
+
+	// change back to main charset, should be 0x8000, so high byte = 0x80
 	*CHBASE = >charset;
+	
 	asm {
 		lda #<dlScore
 		sta DLIST
 		lda #>dlScore
 		sta DLIST+1
 	}
+
 }
 
 char * strToCode(char *s) {
 	char *p = s;
 	while(*p != 0) {
 		char c = convertAtasciiToCode(*p);
+		// in our charset, the space is now at position 0xfe, so fix it.
 		if (c == 0) c = 0xfe;
 		*p = c;
 		p++;

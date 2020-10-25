@@ -1,3 +1,7 @@
+#pragma target(atarixl)
+#pragma encoding(atascii)
+#pragma zp_reserve(0x00..0x7f)
+
 #include <atari-xl.h>
 #include "atari-system.h"
 #include "counter.h"
@@ -9,16 +13,13 @@ void runLipsum() {
 	counterOn(1);
 	benchmarkLipsum();
 	counterOn(0);
-	waitFrames(100);
-	waitFrames(100);
-	waitFrames(100);
+	waitFrames(10);
 	counterPrint();
 }
 
 void benchmarkLipsum() {
 	char *text = "Lorem ipsum dolor sit amet orci aliquam.";
 	strToCode(text);
-	kickasm {{ .break }}
 	
 	mode8();
 	for (signed char iter = 28; iter >= 0; iter--) {
@@ -35,7 +36,6 @@ void writeGr8(char x, char y, char *text) {
 		char * textChar = charset + ord * 8;
 		char * t = screenPosition + i2;
 		for (signed char i1 = 7; i1 >= 0; i1--) {
-			kickasm {{ .break }}
 			char * a = t + i1 * 40;
 			char * b = textChar + i1;
 			*a = *b;

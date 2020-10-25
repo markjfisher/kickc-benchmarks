@@ -16,16 +16,19 @@
 #include "landscape.h"
 #include "lipsum.h"
 #include "qr1d.h"
+#include "countdownFor.h"
+#include "countdownWhile.h"
 
 void main() {
 	initSuite();
-	waitFrames(10);
 
 	// run each benchmark
 	runLandscape();
 	runChessboard();
 	// runLipsum();
 	runQR1d();
+	runCountdownFor();
+	runCountdownWhile();
 	runBsort();
 
 	// Finally...
