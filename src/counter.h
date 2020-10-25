@@ -12,3 +12,6 @@ void counterOn(char onoff);
 
 // Print the current counter data
 void counterPrint();
+
+// Convert a word into a 5 digit value
+void numberToDigits(word n, char *digits);

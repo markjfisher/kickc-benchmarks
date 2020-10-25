@@ -105,3 +105,69 @@ void counterOverwrite() {
 	// and put it in the first 5 so it gets copied correctly at end of test into the score screen.
 	memcpy(counterLms, counterLms + 0x23, 5);
 }
+
+void numberToDigits(word n, char *digits) {
+	for (char i: 0..4) { digits[i] = 0; }
+	double_dabble(n, digits);
+}
+
+void double_dabble(word n, char *digits) {
+	char nbits = 16;
+	char nscratch = 5; // nbits / 3
+	char scratch[6];   // nscratch + 1
+	char smin = 3;     // nscratch - 2
+	
+	char j, k;
+
+	for(char i = 0; i < 6; i++) scratch[i] = 0;
+	
+	for(j = 0; j < 16; j++) {
+		// this will be shifted in on the right
+		word sh = 1 << (15 - j);
+		word v = n & sh;
+		char shifted_in; // = ((n & (1 << (15 - j))) > 0) ? 1 : 0;
+		if (v != 0) {
+			shifted_in = 1;
+		} else {
+			shifted_in = 0;
+		}
+	
+		// add 3 everywhere that scratch[k] >= 5
+		for (char k = smin; k < nscratch; k++) {
+			if (scratch[k] >= 5) {
+				scratch[k] += 3;
+			}
+		}
+		
+		// shift scratch to the left by 1
+		if (scratch[smin] >= 8) {
+			smin--;
+		}
+		
+		for (char k = smin; k < nscratch - 1; k++) {
+			scratch[k] <<= 1;
+			scratch[k] &= 0xf;
+			if (scratch[k+1] >= 8) {
+				scratch[k] |= 1;
+			}
+		}
+		
+		// shift in the new bit
+		scratch[nscratch - 1] <<= 1;
+		scratch[nscratch - 1] &= 0xf;
+		scratch[nscratch - 1] |= shifted_in;
+	}
+	
+	//// Remove leading zeros from scratch space
+	//for (k = 0; k < nscratch; k++) {
+		//if (scratch[k] != 0) break;
+	//}
+	//nscratch -= k;
+	//memmove(scratch, scratch + k, nscratch + 1);
+	
+	// copy scratch into outgoing array
+	for (char i = 0; i < 5; i++) {
+		digits[i] = scratch[i];
+	}
+	
+}
