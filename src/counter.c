@@ -78,7 +78,7 @@ void prepareCounter(char *name) {
 	memset(counterLms, 0, 5);
 	
 	// display the bench name 1 char after the counter.
-	memcpy(counterLms + 6, benchName, 25);
+	memcpy(counterLms + 6, benchName, strlen(name));
 }
 
 void counterPrint() {

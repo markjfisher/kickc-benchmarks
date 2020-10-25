@@ -31,7 +31,7 @@ void benchmarkCountdownFor() {
 				for(d = 9; d >= 0; d--) {
 					for(e = 9; e >= 0; e--) {
 						for(f = 9; f >= 0; f--) {
-							for(g = 0; g >= 0; g--) {
+							for(g = 9; g >= 0; g--) {
 								// do nothing but loop...
 							}
 						}
