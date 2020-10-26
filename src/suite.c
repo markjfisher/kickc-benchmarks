@@ -21,21 +21,24 @@
 #include "sieve1028.h"
 #include "sieve1899.h"
 #include "montecarlo.h"
+#include "yoshplus.h"
 
 void main() {
 	initSuite();
 
 	// run each benchmark
-	runMontecarlo();
 	runLandscape();
 	runChessboard();
-	// runLipsum();
 	runQR1d();
 	runCountdownFor();
 	runCountdownWhile();
 	runSieve1028();
 	runSieve1899();
 	runBsort();
+	runMontecarlo();
+	runYoshplus();
+
+	// runLipsum();
 
 	// Finally...
 	showScore();
