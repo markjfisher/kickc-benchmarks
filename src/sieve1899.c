@@ -1,26 +1,22 @@
 #pragma target(atarixl)
 #pragma encoding(atascii)
-#pragma zp_reserve(0x00..0x7f)
 
 #include <atari-xl.h>
 #include <string.h>
 #include "atari-system.h"
 #include "counter.h"
 #include "gr.h"
+#include "sieve.h"
 
 void runSieve1899() {
 	memset(lms, 0, 0x1ff0);
 	prepareCounter("Sieve 1899 10x");
+
 	counterOn(1);
 	word count = benchmarkSieve1899();
 	counterOn(0);
 
-	// show the score and pause
-	char digits[5];
-	numberToDigits(count, digits);
-	for(char i: 0..4) {
-		*(counterLms + 0x23 + i) = digits[i];
-	}
+	showAltValue(count);
 	waitFrames(120);
 	counterPrint();
 

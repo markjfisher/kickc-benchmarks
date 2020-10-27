@@ -1,6 +1,5 @@
 #pragma target(atarixl)
 #pragma encoding(atascii)
-#pragma zp_reserve(0x00..0x7f)
 
 #include <atari-xl.h>
 #include "atari-system.h"
@@ -57,15 +56,8 @@ char align(0x100) qr[] = kickasm {{
 }};
 
 void benchmarkQR1d() {
-	// last 4 bytes of counter screen memory
-	char *c0 = counterLms + 0x24;
-	char *c1 = counterLms + 0x25;
-	char *c2 = counterLms + 0x26;
-	char *c3 = counterLms + 0x27;
-
 	mode4();
-	// set them to zeros, which show as "00000" in our charset
-	memset(counterLms + 0x23, 0, 5);
+	clearAltScore();
 	*(RTCLOK + 2) = 0;
 	char y = 0;
 	while (*(RTCLOK + 2) < 200) {
@@ -78,9 +70,9 @@ void benchmarkQR1d() {
 				y = 0;
 			}
 		}
-		(*c3)++;
-		if (*c3 == 10) { *c3 = 0; (*c2)++; }
-		if (*c2 == 10) { *c2 = 0; (*c1)++; }
-		if (*c1 == 10) { *c1 = 0; (*c0)++; }
+		(*scoreA4)++;
+		if (*scoreA4 == 10) { *scoreA4 = 0; (*scoreA3)++; }
+		if (*scoreA3 == 10) { *scoreA3 = 0; (*scoreA2)++; }
+		if (*scoreA2 == 10) { *scoreA2 = 0; (*scoreA1)++; }
 	}
 }

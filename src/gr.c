@@ -1,11 +1,10 @@
 #pragma target(atarixl)
 #pragma encoding(atascii)
-#pragma zp_reserve(0x00..0x7f)
 
 #include "gr.h"
 #include "atari-system.h"
 
-char align(0x400) dl8[] = kickasm(
+export char dl8[] = kickasm(
 		uses lms,
 		uses dl8,
 		uses counterLms
@@ -20,7 +19,7 @@ char align(0x400) dl8[] = kickasm(
 	.byte $41, <dl8, >dl8
 	}};
 
-char align(0x400) dl4[] = kickasm(
+export char dl4[] = kickasm(
 		uses lms,
 		uses dl4,
 		uses counterLms
@@ -33,7 +32,7 @@ char align(0x400) dl4[] = kickasm(
 	.byte $41, <dl4, >dl4
 	}};
 
-char align(0x400) dlCounter[] = kickasm(
+export char dlCounter[] = kickasm(
 		uses counterLms,
 		uses dlCounter
 	) {{
@@ -42,7 +41,7 @@ char align(0x400) dlCounter[] = kickasm(
 	.byte $41, <dlCounter, >dlCounter
 	}};
 
-char align(0x400) dlScore[] = kickasm(
+export char dlScore[] = kickasm(
 		uses scoreLms,
 		uses dlScore
 	) {{

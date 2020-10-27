@@ -1,10 +1,10 @@
 #pragma target(atarixl)
 #pragma encoding(atascii)
-#pragma zp_reserve(0x00..0x7f)
 
 #include <stdlib.h>
 #include <atari-xl.h>
 #include "atari-system.h"
+#include "counter.h"
 #include "gr.h"
 
 // The current benchmark's name
@@ -21,19 +21,17 @@ void counterOn(char onoff) {
 	counterOnValue = onoff;
 }
 
-interrupt(hardware_clobber) void vblCounter() {
-	char * const a = 0x20;
-	char * const b = 0x21;
-	char * const c = 0x22;
-	char * const d = 0x23;
-	char * const e = 0x24;
+void clearAltScore() {
+	memset(scoreA0, 0, 5);
+}
 
+interrupt(hardware_clobber) void vblCounter() {
 	if (counterOnValue != 0) {
-		(*e)++;
-		if (*e == 10) { *e = 0; (*d)++; }
-		if (*d == 10) { *d = 0; (*c)++; }
-		if (*c == 10) { *c = 0; (*b)++; }
-		if (*b == 10) { *b = 0; (*a)++; }
+		(*scoreD4)++;
+		if (*scoreD4 == 10) { *scoreD4 = 0; (*scoreD3)++; }
+		if (*scoreD3 == 10) { *scoreD3 = 0; (*scoreD2)++; }
+		if (*scoreD2 == 10) { *scoreD2 = 0; (*scoreD1)++; }
+		if (*scoreD1 == 10) { *scoreD1 = 0; (*scoreD0)++; }
 	}
 }
 
@@ -47,7 +45,7 @@ void initCounter() {
 	
 	// single character at the very end of 2nd charset = inverted 0.
 	// This means any 0xff value will show as "0" (is there double inversion here?).
-	for(char i: 0..7) {
+	for(register char i: 0..7) {
 		*(charset + 0x800 - 0x08 + i) = *(charset + 0x80 + i) ^ 0xff;
 	}
 	
@@ -100,17 +98,28 @@ void counterPrint() {
 	currentPrintPosition += 40;
 }
 
+void showAltValue(word n) {
+	char digits[5];
+	numberToDigits(n, digits);
+	for(register char i: 0..4) {
+		*(scoreA0 + i) = digits[i];
+	}
+
+}
+
 void counterOverwrite() {
 	// copy the last 5 chars of the counter display (the temporary counter for some benchmars)
 	// and put it in the first 5 so it gets copied correctly at end of test into the score screen.
-	memcpy(counterLms, counterLms + 0x23, 5);
+	memcpy(counterLms, scoreA0, 5);
 }
 
 void numberToDigits(word n, char *digits) {
-	for (char i: 0..4) { digits[i] = 0; }
+	memset(digits, 0, 5);
 	double_dabble(n, digits);
 }
 
+// taken from https://en.wikipedia.org/wiki/Double_dabble
+// converts a word into 5 bytes of BCD values, highest number first, no removal of zeroes.
 void double_dabble(word n, char *digits) {
 	char nbits = 16;
 	char nscratch = 5; // nbits / 3
@@ -158,6 +167,7 @@ void double_dabble(word n, char *digits) {
 		scratch[nscratch - 1] |= shifted_in;
 	}
 	
+	// This part of the implementation was left out:
 	//// Remove leading zeros from scratch space
 	//for (k = 0; k < nscratch; k++) {
 		//if (scratch[k] != 0) break;

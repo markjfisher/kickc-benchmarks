@@ -1,6 +1,5 @@
 #pragma target(atarixl)
 #pragma encoding(atascii)
-#pragma zp_reserve(0x00..0x7f)
 
 #include <atari-xl.h>
 #include "counter.h"

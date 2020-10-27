@@ -4,8 +4,8 @@
 #pragma encoding(atascii)
 #pragma zp_reserve(0x00..0x7f)
 
-#include <atari-xl.h>
 #include <string.h>
+#include <atari-xl.h>
 #include "atari-system.h"
 #include "counter.h"
 #include "gr.h"
@@ -22,6 +22,7 @@
 #include "sieve1899.h"
 #include "montecarlo.h"
 #include "yoshplus.h"
+#include "guessing.h"
 
 void main() {
 	initSuite();
@@ -37,6 +38,7 @@ void main() {
 	runBsort();
 	runMontecarlo();
 	runYoshplus();
+	runGuessing();
 
 	// runLipsum();
 

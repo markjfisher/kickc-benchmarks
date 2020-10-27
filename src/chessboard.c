@@ -1,6 +1,5 @@
 #pragma target(atarixl)
 #pragma encoding(atascii)
-#pragma zp_reserve(0x00..0x7f)
 
 #include <atari-xl.h>
 #include "atari-system.h"
@@ -20,7 +19,7 @@ void runChessboard() {
 
 void benchmarkChessboard() {
 	mode8();
-	memset(counterLms + 0x23, 0, 5);
+	clearAltScore();
 
 	char *c1 = counterLms + 0x25;
 	char *c2 = counterLms + 0x26;

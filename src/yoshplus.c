@@ -11,30 +11,20 @@ void runYoshplus() {
 	waitFrames(40);
 	counterPrint();
 	// force the value not to be optimized away
-	*(counterLms + 0x43) = c;
+	*(scoreA0) = c;
 }
 
 char benchmarkYoshplus() {
-	// Map the RHS score digits to memory addresses. byte 0-9 displays as "0" to "9" on screen.
-	//__address(0x41) char a;
-	//__address(0x42) char b;
-	__address(0x43) char c;
-	__address(0x44) char d;
-	__address(0x45) char e;
-	__address(0x46) char f;
-	__address(0x47) char g;
-
-	memset(counterLms + 0x23, 0, 5);
+	clearAltScore();
 	*(RTCLOK + 2) = 0;
 
 	while (*(RTCLOK + 2) < 100) {
-		g++;
-		if (g == 10) { g = 0; f++; }
-		if (f == 10) { f = 0; e++; }
-		if (e == 10) { e = 0; d++; }
-		if (d == 10) { d = 0; c++; }
+		(*scoreA4)++;
+		if (*scoreA4 == 10) { *scoreA4 = 0; (*scoreA3)++; }
+		if (*scoreA3 == 10) { *scoreA3 = 0; (*scoreA2)++; }
+		if (*scoreA2 == 10) { *scoreA2 = 0; (*scoreA1)++; }
+		if (*scoreA1 == 10) { *scoreA1 = 0; (*scoreA0)++; }
 	}
-	// force c to be retained
-	return c;
+	return *scoreA0;
 
 }
