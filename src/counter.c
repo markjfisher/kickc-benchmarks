@@ -3,12 +3,13 @@
 
 #include <stdlib.h>
 #include <atari-xl.h>
+#include <string.h>
 #include "atari-system.h"
 #include "counter.h"
 #include "gr.h"
 
-// The current benchmark's name
-char benchName[25];
+// The current benchmark's name - has to be 1 larger than the actual max string (25) for the 0 to terminate the string.
+char benchName[26];
 
 // Where to put the next score, start at scoreLms, then increment row by row when printing
 char *currentPrintPosition = scoreLms;
@@ -64,8 +65,10 @@ void prepareCounter(char *name) {
 	*CHBASE = >(charset + 0x400);
 
 	// copy name into benchName, preserving the original string
-	memset(benchName, 0, 25);
-	memcpy(benchName, name, strlen(name));
+	memset(benchName, 0, 26);
+	word len = strlen(name);
+	if (len > 25) len = 25; // ensure there's a zero at the end
+	memcpy(benchName, name, len);
 	// change and fix the atascii string to be displayable in our charset where spaces are at 0xfe, and rest have to be antic codes.
 	strToCode(benchName);
 

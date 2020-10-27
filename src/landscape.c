@@ -2,6 +2,7 @@
 #pragma encoding(atascii)
 
 #include <atari-xl.h>
+#include <stdint.h>
 #include "atari-system.h"
 #include "counter.h"
 #include "gr.h"
@@ -16,50 +17,47 @@ void runLandscape() {
 	counterPrint();
 }
 
-char landscapeBase[] = kickasm {{
-		.byte $AA, $96, $90, $90, $7A, $7A, $6E, $6E, $5E, $5E, $56, $56, $52, $50 
-	}};
-
 void benchmarkLandscape() {
-	char colHeight[14];
+	__ma uint8_t const base[14] = { 0xaa, 0x96, 0x90, 0x90, 0x7a, 0x7a, 0x6e, 0x6e, 0x5e, 0x5e, 0x56, 0x56, 0x52, 0x50 };
+	
+	uint8_t colHeight[14];
 
 	enableDLI(&g9off);
 	mode8();
 	*PRIOR = 0x40;
 	GTIA->COLBK = 0xb0;
 
-	for(char z: 0..9) {
-		memcpy(colHeight, landscapeBase, 14);
-		for (signed char x = 39; x >= 0; x--) {
-			for (signed char i = 1; i >= 0; i--) {
-				char *screenAddress = lms + x;
-				char start = 0;
-				for (signed char c = 13; c >= 0; c--) {
-					char uc = (char) c;
-					char stop = colHeight[uc];
+	for(uint8_t loop = 0; loop < 10; loop++) {
+		memcpy(colHeight, base, 14);
+		for (uint8_t x: 39..0) {
+			for (uint8_t i: 1..0) {
+				uint8_t *screenAddress = lms + x;
+				uint8_t start = 0;
+				for (uint8_t c: 13..0) {
+					uint8_t stop = colHeight[c];
 					if (start > stop) {
-						// Need a word here else it overflows
-						screenAddress -= ((word) (start - stop) * 40);
+						uint16_t offset = ((word) (start - stop) * 40);
+						screenAddress -= offset;
 						stop = start;
-						start = colHeight[uc];
+						start = colHeight[c];
 					}
 					if (i == 1) {
 						while (start < stop) {
-							*screenAddress = uc;
+							*screenAddress = c;
 							screenAddress += 40;
 							start++;
 						}
 					} else {
 						while (start < stop) {
-							*screenAddress = ((*screenAddress) & 0xf) | (uc << 4);
+							*screenAddress = ((*screenAddress) & 0xf) | (c << 4);
 							screenAddress += 40;
 							start++;
 						}
 					}
-					
+
 					start = stop;
-					if ((*RANDOM) < 0x80) { colHeight[uc]--; }
-					if ((*RANDOM) < 0x80) { colHeight[uc]++; }
+					if ((*RANDOM) < 0x80) { colHeight[c]--; }
+					if ((*RANDOM) < 0x80) { colHeight[c]++; }
 				}
 			}
 		}
