@@ -23,11 +23,11 @@
 #include "montecarlo.h"
 #include "yoshplus.h"
 #include "guessing.h"
+#include "md5.h"
 
 void main() {
 	initSuite();
 
-	// run each benchmark
 	runLandscape();
 	runChessboard();
 	runQR1d();
@@ -39,10 +39,10 @@ void main() {
 	runMontecarlo();
 	runYoshplus();
 	runGuessing();
+	runMd5();
 
 	// runLipsum();
 
-	// Finally...
 	showScore();
 	for(;;) ;
 }
