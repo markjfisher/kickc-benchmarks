@@ -8,9 +8,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
-#include <printf.h>
-#include <conio.h>
-#include <6502.h>
 
 void runMd5() {
 	memset(lms, 0, 0x1ff0);

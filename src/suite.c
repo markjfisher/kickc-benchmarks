@@ -24,6 +24,7 @@
 #include "yoshplus.h"
 #include "guessing.h"
 #include "md5.h"
+#include "matrixTrans.h"
 
 void main() {
 	initSuite();
@@ -40,6 +41,7 @@ void main() {
 	runYoshplus();
 	runGuessing();
 	runMd5();
+	runMatrix();
 
 	// runLipsum();
 
