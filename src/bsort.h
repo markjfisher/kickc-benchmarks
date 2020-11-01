@@ -1,1 +1,1 @@
-void runBsort();
+void benchmarkBsort();

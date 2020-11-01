@@ -5,16 +5,6 @@
 #include "counter.h"
 #include "gr.h"
 
-void runBsort() {
-	memset(lms, 0, 0x1ff0);
-	prepareCounter("Bubble Sort: 255 elements");
-	counterOn(1);
-	benchmarkBsort();
-	counterOn(0);
-	waitFrames(10);
-	counterPrint();
-}
-
 void benchmarkBsort() {
 	char align(0x100) sortTable[255];
 	// Make the test repeatable by actually initialising, rather than using kickasm fill

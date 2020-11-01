@@ -1,1 +1,1 @@
-void runFire();
+void benchmarkFire();

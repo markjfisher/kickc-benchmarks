@@ -30,19 +30,21 @@
 void main() {
 	initSuite();
 
-	runLandscape();
-	runChessboard();
-	runQR1d();
-	runCountdownFor();
-	runCountdownWhile();
-	runSieve1028();
-	runSieve1899();
-	runBsort();
-	runMontecarlo();
-	runYoshplus();
-	runGuessing();
-	runMd5();
-	runMatrix();
+
+	
+	runBenchmark("Quatari Landscape GR9 10x", 0, 10, &benchmarkLandscape);
+	//runBenchmark("Chessboard GR8 200 frames", 1, 10, &benchmarkChessboard);
+	//runBenchmark("QR 1D Array 200 frames", 1, 10, &benchmarkQR1d);
+	//runCountdownFor();
+	//runCountdownWhile();
+	//runSieve1028();
+	//runSieve1899();
+	runBenchmark("Bubble Sort: 255 elements", 0, 10, &benchmarkBsort);
+	//runMontecarlo();
+	//runYoshplus();
+	//runGuessing();
+	//runMd5();
+	//runMatrix();
 	//runFire();
 
 	// runLipsum();
@@ -58,4 +60,17 @@ void initSuite() {
 	memset(scoreLms, 0, 0xfff);
 	initCounter();
 	enableVBLI(&vblCounter);
+}
+
+void runBenchmark(uint8_t *name, uint8_t overwrite, uint8_t wait, void ()*benchmark) {
+	memset(lms, 0, 0x1ff0);
+	prepareCounter(name);
+	counterOn(1);
+	(*benchmark)();
+	counterOn(0);
+	waitFrames(wait);
+	if (overwrite == 1) {
+		counterOverwrite();
+	}
+	counterPrint();
 }

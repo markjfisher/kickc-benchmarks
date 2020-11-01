@@ -1,1 +1,1 @@
-void runLandscape();
+void benchmarkLandscape();

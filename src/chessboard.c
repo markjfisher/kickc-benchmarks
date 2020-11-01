@@ -6,17 +6,6 @@
 #include "counter.h"
 #include "gr.h"
 
-void runChessboard() {
-	memset(lms, 0, 0x1ff0);
-	prepareCounter("Chessboard GR8 200 frames");
-	counterOn(1);
-	benchmarkChessboard();
-	counterOn(0);
-	waitFrames(10);
-	counterOverwrite();
-	counterPrint();
-}
-
 void benchmarkChessboard() {
 	mode8();
 	clearAltScore();

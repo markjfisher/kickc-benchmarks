@@ -7,16 +7,6 @@
 #include "counter.h"
 #include "gr.h"
 
-void runLandscape() {
-	memset(lms, 0, 0x1ff0);
-	prepareCounter("Quatari Landscape GR9 10x");
-	counterOn(1);
-	benchmarkLandscape();
-	counterOn(0);
-	waitFrames(10);
-	counterPrint();
-}
-
 void benchmarkLandscape() {
 	__ma uint8_t const base[14] = { 0xaa, 0x96, 0x90, 0x90, 0x7a, 0x7a, 0x6e, 0x6e, 0x5e, 0x5e, 0x56, 0x56, 0x52, 0x50 };
 	

@@ -94,7 +94,7 @@ void waitFrame();
 
 // Waits for a specified number of frames.
 // Each frame is 1/50 sec for PAL systems, or 1/60 sec for NTSC
-void waitFrames(signed char frames);
+void waitFrames(char frames);
 
 // Sets font charset located at specified page of memory
 void setCharset(char msb);
