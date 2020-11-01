@@ -16,38 +16,32 @@ void benchmarkCountdownWhile() {
 	char *c7 = counterLms + 0x27;
 
 	*c1 = 1;
-	*c2 = 9;
-	*c3 = 9;
-	*c4 = 9;
-	*c5 = 9;
-	*c6 = 9;
-	*c7 = 9;
-	
-	while (*c1 != 0xff) {
+	do {
 		*c2 = 9;
-		while (*c2 != 0xff) {
+		do {
 			*c3 = 9;
-			while (*c3 != 0xff) {
+			do {
 				*c4 = 9;
-				while (*c4 != 0xff) {
+				do {
 					*c5 = 9;
-					while (*c5 != 0xff) {
+					do {
 						*c6 = 9;
-						while (*c6 != 0xff) {
+						do {
 							*c7 = 9;
-							while (*c7 != 0xff) {
+							do {
 								(*c7)--;
-							}
+							} while (*c7 != 0xff);
 							(*c6)--;
-						}
+						} while (*c6 != 0xff);
 						(*c5)--;
-					}
+					} while (*c5 != 0xff);
 					(*c4)--;
-				}
+				} while (*c4 != 0xff);
 				(*c3)--;
-			}
+			} while (*c3 != 0xff);
 			(*c2)--;
-		}
+		} while (*c2 != 0xff);
 		(*c1)--;
-	}
+	} while (*c1 != 0xff);
+	
 }
