@@ -27,7 +27,7 @@ void benchmarkLandscape() {
 	*PRIOR = 0x40;
 	GTIA->COLBK = 0xb0;
 
-	for(uint8_t loop = 0; loop < 10; loop++) {
+	for(uint8_t loop: 0..9) {
 		memcpy(colHeight, base, 14);
 		for (uint8_t x: 39..0) {
 			for (uint8_t i: 1..0) {

@@ -31,19 +31,19 @@ void main() {
 	initSuite();
 
 	runLandscape();
-	//runChessboard();
-	//runQR1d();
-	//runCountdownFor();
-	//runCountdownWhile();
-	//runSieve1028();
-	//runSieve1899();
-	//runBsort();
-	//runMontecarlo();
-	//runYoshplus();
-	//runGuessing();
-	//runMd5();
-	//runMatrix();
-	runFire();
+	runChessboard();
+	runQR1d();
+	runCountdownFor();
+	runCountdownWhile();
+	runSieve1028();
+	runSieve1899();
+	runBsort();
+	runMontecarlo();
+	runYoshplus();
+	runGuessing();
+	runMd5();
+	runMatrix();
+	//runFire();
 
 	// runLipsum();
 

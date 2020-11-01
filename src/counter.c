@@ -86,7 +86,7 @@ void counterPrint() {
 	char *position = currentPrintPosition;
 	
 	// benchName was changed to be displayed on 2nd charset where spaces are 0xfe, so change them back
-	for (char i = 0; i<25; i++) {
+	for (char i: 0..24) {
 		if (*(benchName + i) == 0xfe) *(benchName + i) = 0;
 	}
 
@@ -131,9 +131,9 @@ void double_dabble(word n, char *digits) {
 	
 	char j, k;
 
-	for(char i = 0; i < 6; i++) scratch[i] = 0;
+	for(char i: 0..5) scratch[i] = 0;
 	
-	for(j = 0; j < 16; j++) {
+	for(j: 0..15) {
 		// this will be shifted in on the right
 		word sh = 1 << (15 - j);
 		word v = n & sh;
@@ -179,7 +179,7 @@ void double_dabble(word n, char *digits) {
 	//memmove(scratch, scratch + k, nscratch + 1);
 	
 	// copy scratch into outgoing array
-	for (char i = 0; i < 5; i++) {
+	for (char i: 0..4) {
 		digits[i] = scratch[i];
 	}
 	

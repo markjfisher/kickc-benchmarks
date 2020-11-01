@@ -40,7 +40,7 @@ word benchmarkMontecarlo() {
 void init_squares() {
 	word * sp = squares;
     word sqr = 0;
-    for(char i=0; i <= 127; i++) {
+    for(char i: 0..127) {
         *sp++ = sqr;
         sqr += i*2+1;
     }

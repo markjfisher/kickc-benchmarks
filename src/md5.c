@@ -24,7 +24,7 @@ void runMd5() {
 void benchmarkMd5() {
 	uint8_t data[512];
 	for (uint16_t i = 0; i < 512; i++) { data[i] = (uint8_t) i; }
-	for (uint8_t l = 0; l < 5; l++) { md5(data, 512); } 
+	for (uint8_t l: 0..4) { md5(data, 512); } 
 }
 
 #define LEFTROTATE(x, c) (((x) << (c)) | ((x) >> (32 - (c))))
@@ -95,7 +95,7 @@ void md5(uint8_t *initial_msg, size_t initial_len) {
         uint32_t c = h2;
         uint32_t d = h3;
         
-        for(uint8_t i = 0; i<64; i++) {
+        for(uint8_t i: 0..63) {
 			uint32_t f;
 			uint8_t g;
 			switch ((i >> 4) & 3)

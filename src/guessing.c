@@ -18,7 +18,7 @@ void runGuessing() {
 
 char benchmarkGuessing() {
 	// Looping more shows signed to signed comparisons are faster than signed to non-signed
-	for (char loop = 0; loop < 10; loop++) {
+	for (char loop: 0..9) {
 		clearAltScore();
 		for(signed word r = 1; r <= 1000; r++) {
 			signed word wg = 500;

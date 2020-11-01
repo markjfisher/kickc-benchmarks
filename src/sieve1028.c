@@ -25,10 +25,10 @@ void runSieve1028() {
 
 word benchmarkSieve1028() {
 	word count = 0;
-	for (signed char loop = 9; loop >= 0; loop--) {
+	for (char loop: 9..0) {
 		char count = 0;
 		memset(sieveFlags, 1, 0x2000);
-		for (char n = 2; n < 92; n++) {
+		for (char n: 2..91) {
 			if (sieveFlags[n] == 1) {
 				word k = n << 1;
 				while (k < 0x2000) {

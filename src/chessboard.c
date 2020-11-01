@@ -28,9 +28,9 @@ void benchmarkChessboard() {
 	*(RTCLOK + 2) = 0;
 	while (*(RTCLOK + 2) < 200) {
 		char *p = lms;
-		for (signed char i3 = 7; i3 >= 0; i3--) {
-			for (signed char i2 = 23; i2 >= 0; i2--) {
-				for (signed char i1 = 3; i1 >= 0; i1--) {
+		for (char i3: 7..0) {
+			for (char i2: 23..0) {
+				for (char i1: 3..0) {
 					*p     = 0xff;
 					*(p+1) = 0xff;
 					*(p+2) = 0xff;

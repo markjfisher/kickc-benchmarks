@@ -27,21 +27,20 @@ void benchmarkFire() {
 	*PRIOR = 0x40;
 	GTIA->COLBK = 0x20;
 	
-	for (uint16_t i = 0; i < 0x100; i++) {
-		*(lms + 0x000 + i) = 0;
-		*(lms + 0x100 + i) = 0;
-		*(lms + 0x200 + i) = 0;
-		*(lms + 0x300 + i) = 0;
+	 for (uint8_t i: 0x00..0xff) {
+		*(fireScreen + 0x000 + i) = 0;
+		*(fireScreen + 0x100 + i) = 0;
+		*(fireScreen + 0x200 + i) = 0;
+		*(fireScreen + 0x300 + i) = 0;
 	}
 
 	uint8_t t = 0;
 	uint8_t * cp = fireCharset;
-	for (uint8_t i = 0; i <= 0x10; i++) {
-		for (uint8_t j = 0; j < 8; j++) {
-			*(cp + j) = t;
+	for (uint8_t i: 0..0x10) {
+		for (uint8_t j: 0..7) {
+			*(cp++) = t;
 		}
 		t += 0x11;
-		cp += 8;
 	}
 
 	cp = fireScreen;

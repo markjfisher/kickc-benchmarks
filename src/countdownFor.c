@@ -17,20 +17,20 @@ void runCountdownFor() {
 }
 
 void benchmarkCountdownFor() {
-	__address(0x41) signed char a;
-	__address(0x42) signed char b;
-	__address(0x43) signed char c;
-	__address(0x44) signed char d;
-	__address(0x45) signed char e;
-	__address(0x46) signed char f;
-	__address(0x47) signed char g;
-	for(a = 1; a >= 0; a--) {
-		for(b = 9; b >= 0; b--) {
-			for(c = 9; c >= 0; c--) {
-				for(d = 9; d >= 0; d--) {
-					for(e = 9; e >= 0; e--) {
-						for(f = 9; f >= 0; f--) {
-							for(g = 9; g >= 0; g--) {
+	__address(0x41) char a;
+	__address(0x42) char b;
+	__address(0x43) char c;
+	__address(0x44) char d;
+	__address(0x45) char e;
+	__address(0x46) char f;
+	__address(0x47) char g;
+	for(a: 1..0) {
+		for(b: 9..0) {
+			for(c: 9..0) {
+				for(d: 9..0) {
+					for(e: 9..0) {
+						for(f: 9..0) {
+							for(g: 9..0) {
 								// do nothing but loop...
 							}
 						}

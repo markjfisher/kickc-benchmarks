@@ -143,7 +143,7 @@ inline void setIRQ(void * irqptr) {
 }
 
 // Enable and set custom handler for Display List Interrupt
-void enableDLI(__ma void *dliptr) {
+void enableDLI(void *dliptr) {
 	waitFrame();
 	asm {
 		lda #0

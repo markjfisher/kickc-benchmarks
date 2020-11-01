@@ -24,7 +24,7 @@ void runSieve1899() {
 
 word benchmarkSieve1899() {
 	word count = 0;
-	for (signed char loop = 9; loop >= 0; loop--) {
+	for (char loop: 9..0) {
 		memset(sieveFlags, 1, 0x2000);
 		count = 0;
 		word i = 0;
