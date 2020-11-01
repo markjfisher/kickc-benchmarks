@@ -51,6 +51,19 @@ export char dlScore[] = kickasm(
 	.byte $41, <dlScore, >dlScore
 	}};
 
+export char dlFire[] = kickasm(
+		uses dlFire,
+		uses fireScreen,
+		uses counterLms
+	) {{
+	.byte $f0, $70, $70
+	.byte $42, counterLms, $00
+	.byte $f0
+	.byte $4F, <fireScreen, >fireScreen
+	.fill 20, $02
+	.byte $41, <dlFire, >dlFire
+	}};
+
 void mode8() {
 	asm {
 		lda #<dl8
@@ -65,6 +78,15 @@ void mode4() {
 		lda #<dl4
 		sta DLIST
 		lda #>dl4
+		sta DLIST+1
+	}
+}
+
+void modeFire() {
+	asm {
+		lda #<dlFire
+		sta DLIST
+		lda #>dlFire
 		sta DLIST+1
 	}
 }
@@ -119,4 +141,54 @@ char convertAtasciiToCode(char c) {
 	if      (noInverse < 0x20) noInverse += 0x40;
 	else if (noInverse < 0x60) noInverse -= 0x20;
 	return noInverse | inverseBit;
+}
+
+interrupt(hardware_clobber) void priorOff() {
+	*PRIOR = 0;
+
+	asm(clobbers "A") {
+		lda #<priorOn
+		sta systemOffB.dlivec
+		lda #>priorOn
+		sta systemOffB.dlivec+1
+	}
+}
+
+interrupt(hardware_clobber) void priorOn() {
+	*PRIOR = 0x40;
+	asm(clobbers "A") {
+		lda #<priorOff
+		sta systemOffB.dlivec
+		lda #>priorOff
+		sta systemOffB.dlivec+1
+	}
+}
+
+interrupt(hardware_clobber) void priorOffFire() {
+	*PRIOR = 0;
+
+	// for the scoreboard
+	*CHBASE = >(charset + 0x400);
+
+	asm(clobbers "A") {
+		lda #<priorOnFire
+		sta systemOffB.dlivec
+		lda #>priorOnFire
+		sta systemOffB.dlivec+1
+	}
+}
+
+interrupt(hardware_clobber) void priorOnFire() {
+	*PRIOR = 0x40;
+
+	// for the fire
+	*CHBASE = >fireCharset;
+
+
+	asm(clobbers "A") {
+		lda #<priorOffFire
+		sta systemOffB.dlivec
+		lda #>priorOffFire
+		sta systemOffB.dlivec+1
+	}
 }

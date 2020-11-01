@@ -22,7 +22,7 @@ void benchmarkLandscape() {
 	
 	uint8_t colHeight[14];
 
-	enableDLI(&g9off);
+	enableDLI(&priorOff);
 	mode8();
 	*PRIOR = 0x40;
 	GTIA->COLBK = 0xb0;
@@ -65,27 +65,4 @@ void benchmarkLandscape() {
 	disableDLI();
 	*PRIOR = 0;
 	GTIA->COLBK = 0;
-}
-
-volatile char *pOn;
-volatile char *pOff;
-
-interrupt(hardware_clobber) void g9off() {
-	*PRIOR = 0;
-	asm(clobbers "A") {
-		lda #<g9on
-		sta systemOffB.dlivec
-		lda #>g9on
-		sta systemOffB.dlivec+1
-	}
-}
-
-interrupt(hardware_clobber) void g9on() {
-	*PRIOR = 0x40;
-	asm(clobbers "A") {
-		lda #<g9off
-		sta systemOffB.dlivec
-		lda #>g9off
-		sta systemOffB.dlivec+1
-	}
 }

@@ -143,7 +143,26 @@ inline void setIRQ(void * irqptr) {
 }
 
 // Enable and set custom handler for Display List Interrupt
-void enableDLI(void *dliptr) {
+void enableDLI(__ma void *dliptr) {
+	waitFrame();
+	asm {
+		lda #0
+		sta NMIEN
+
+		lda #<dliptr
+		sta systemOffB.dlivec
+		lda #>dliptr
+		sta systemOffB.dlivec+1
+
+		lda __nmien
+		ora #$c0
+		sta NMIEN
+		sta __nmien
+	}
+}
+
+// TODO: Remove this when I can work out how to pass functions as parameter without compiler getting error
+void enableDLI2(void *dliptr) {
 	waitFrame();
 	asm {
 		lda #0

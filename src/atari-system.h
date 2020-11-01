@@ -83,7 +83,8 @@ void disableIRQ();
 void setIRQ(void *irqptr);
 
 // Enable and set custom handler for Display List Interrupt
-void enableDLI(void *dliptr);
+void enableDLI(__ma void *dliptr);
+void enableDLI2(void *dliptr);
 
 // Disables Display List Interrupts
 void disableDLI();
