@@ -1,1 +1,1 @@
-void runSieve1028();
+void benchmarkSieve1028();

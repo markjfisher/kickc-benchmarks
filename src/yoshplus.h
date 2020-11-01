@@ -1,1 +1,1 @@
-void runYoshplus();
+void benchmarkYoshplus();

@@ -8,21 +8,7 @@
 #include "gr.h"
 #include "sieve.h"
 
-void runSieve1899() {
-	memset(lms, 0, 0x1ff0);
-	prepareCounter("Sieve 1899 10x");
-
-	counterOn(1);
-	word count = benchmarkSieve1899();
-	counterOn(0);
-
-	showAltValue(count);
-	waitFrames(120);
-	counterPrint();
-
-}
-
-word benchmarkSieve1899() {
+void benchmarkSieve1899() {
 	word count = 0;
 	for (char loop: 9..0) {
 		memset(sieveFlags, 1, 0x2000);
@@ -41,5 +27,5 @@ word benchmarkSieve1899() {
 			i++;
 		}
 	}
-	return count;
+	showAltValue(count);
 }

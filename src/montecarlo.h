@@ -1,1 +1,1 @@
-void runMontecarlo();
+void benchmarkMontecarlo();

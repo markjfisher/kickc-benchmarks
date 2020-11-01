@@ -6,7 +6,7 @@
 #include "gr.h"
 
 void benchmarkBsort() {
-	char align(0x100) sortTable[255];
+	char sortTable[255];
 	// Make the test repeatable by actually initialising, rather than using kickasm fill
 	for(char i: 0..254) {
 		sortTable[i] = 0xff - i;

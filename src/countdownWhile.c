@@ -6,16 +6,6 @@
 #include "counter.h"
 #include "gr.h"
 
-void runCountdownWhile() {
-	memset(lms, 0, 0x1ff0);
-	prepareCounter("Countdown 2ML: WHILE");
-	counterOn(1);
-	benchmarkCountdownWhile();
-	counterOn(0);
-	waitFrames(10);
-	counterPrint();
-}
-
 void benchmarkCountdownWhile() {
 	char *c1 = counterLms + 0x21;
 	char *c2 = counterLms + 0x22;
