@@ -21,22 +21,28 @@ void runSieve1899() {
 }
 
 word benchmarkSieve1899() {
+	word k, prime;
+	char strikeout;
 	word count = 0;
 	for (char loop: 9..0) {
 		memset(sieveFlags, 1, 0x2000);
 		count = 0;
 		word i = 0;
-		while (i < 0x2000) {
-			if (sieveFlags[i] == 1) {
-				word prime = 3 + (i << 1);
-				word k = prime + i;
-				while (k < 0x2000) {
-					sieveFlags[k] = 0;
-					k += prime;
-				}
+		strikeout = 1;
+		for (word i = 0; i < 0x2000; i++) {
+			if (sieveFlags[i] != 0) {
+				prime = 3 + i * 2;
 				count++;
+				if (strikeout != 0) {
+					if (prime > 127) {
+						strikeout = 0;
+					} else {
+						for (k = i + prime; k < 0x2000; k += prime) {
+							sieveFlags[k] = 0;
+						}
+					}
+				}
 			}
-			i++;
 		}
 	}
 	return count;
