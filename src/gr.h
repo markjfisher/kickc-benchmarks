@@ -3,8 +3,8 @@
 char * const charset     = 0x8000;
 char * const lms         = 0xa010;
 char * const scoreLms    = 0xe000;
-char * const fireCharset = 0x6000;
-char * const fireScreen  = 0x6400;
+char * const fireCharset = 0xa000;
+char * const fireScreen  = 0xa410;
 
 void mode8();
 void mode4();

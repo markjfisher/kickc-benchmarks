@@ -8,11 +8,12 @@
 
 void runFire() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("Fire demo");
+	prepareCounter("Flames GTIA 250 frames");
 	counterOn(1);
 	benchmarkFire();
 	counterOn(0);
-	waitFrames(10);
+	counterOverwrite();
+	waitFrames(40);
 	counterPrint();
 }
 
@@ -20,63 +21,49 @@ void benchmarkFire() {
 	clearAltScore();
 	*SDMCTL = 0x21;
 
-	enableDLI(&priorOffFire);
+	enableDLI2(&priorOffFire);
 	modeFire();
 	*PRIOR = 0x40;
 	GTIA->COLBK = 0x20;
-	
-	 for (uint8_t i: 0x00..0xff) {
-		*(fireScreen + 0x000 + i) = 0;
-		*(fireScreen + 0x100 + i) = 0;
-		*(fireScreen + 0x200 + i) = 0;
-		*(fireScreen + 0x300 + i) = 0;
-	}
 
 	uint8_t t = 0;
-	uint8_t * cp = fireCharset;
-	for (uint8_t i: 0..0x10) {
+	uint8_t *p = fireCharset;
+	
+	for(uint8_t i: 0..0xf) {
 		for (uint8_t j: 0..7) {
-			*(cp++) = t;
+			*(p++) = t;
 		}
 		t += 0x11;
 	}
-
-	cp = fireScreen;
-	uint8_t k = 0x10;
+	
+	clearAltScore();
+	
 	*(RTCLOK + 2) = 0;
-	while (*(RTCLOK + 2) < 200) {
-		t = *(cp - 1 + k);
-		t += *(cp + k);
-		t += *(cp + 1 + k);
-		t += *(cp + 32 + k);
-		t >>= 2;
-		*(cp - 31 + k) = t;
-		
-		t = *(cp - 1 + 0x100 + k);
-		t += *(cp + 0x100 + k);
-		t += *(cp + 1 + 0x100 + k);
-		t += *(cp + 32 + 0x100 + k);
-		t >>= 2;
-		*(cp - 31 + 0x100 + k) = t;
+	while (*(RTCLOK + 2) < 250) {
+		uint8_t *p0 = fireScreen - 31;
+		uint8_t *p1 = fireScreen - 31 + 0x100;
+		uint8_t *p2 = fireScreen - 31 + 0x200;
 
-		t = *(cp - 1 + 0x200 + k);
-		t += *(cp + 0x200 + k);
-		t += *(cp + 1 + 0x200 + k);
-		t += *(cp + 32 + 0x200 + k);
-		t >>= 2;
-		*(cp - 31 + 0x200 + k) = t;
-		
-		// seems pointless...
-		waitFrames(3);
-
-		GTIA->COLBK = 10;
-		for (int8_t k2 = 0x1f; k2 >= 0; k2--) {
-			*(cp + 0x2e0 + k2) = (*RANDOM) & 0xf;
+		for (uint8_t i: 0..255) {
+			*(p0 + i) = (*(p0+30 + i) + *(p0+31 + i) + *(p0+32 + i) + *(p0+63 + i)) >> 2;
+			*(p1 + i) = (*(p1+30 + i) + *(p1+31 + i) + *(p1+32 + i) + *(p1+63 + i)) >> 2;
+			*(p2 + i) = (*(p2+30 + i) + *(p2+31 + i) + *(p2+32 + i) + *(p2+63 + i)) >> 2;
 		}
-		k = 0;
-		// GTIA->COLBK = *RANDOM;
+		
+		p0 = fireScreen + 0x2e0;
+		for (uint8_t i: 0x1f..0) {
+			*(p0 + i) = (*RANDOM) & 0xf;
+		}
+		
+		(*scoreA4)++;
+		if (*scoreA4 == 10) { *scoreA4 = 0; (*scoreA3)++; }
+		if (*scoreA3 == 10) { *scoreA3 = 0; (*scoreA2)++; }
+		if (*scoreA2 == 10) { *scoreA2 = 0; (*scoreA1)++; }
+
 	}
+
 	disableDLI();
 	*PRIOR = 0;
+	ANTIC->DMACTL = 0x22;
 	GTIA->COLBK = 0;
 }

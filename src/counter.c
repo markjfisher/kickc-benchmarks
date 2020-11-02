@@ -109,7 +109,7 @@ void showAltValue(word n) {
 }
 
 void counterOverwrite() {
-	// copy the last 5 chars of the counter display (the temporary counter for some benchmars)
+	// copy the last 5 chars of the counter display (the temporary counter for some benchmarks)
 	// and put it in the first 5 so it gets copied correctly at end of test into the score screen.
 	memcpy(counterLms, scoreA0, 5);
 }

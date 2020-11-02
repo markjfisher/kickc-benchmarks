@@ -56,8 +56,9 @@ char align(0x100) qr[] = kickasm {{
 void benchmarkQR1d() {
 	mode4();
 	clearAltScore();
-	*(RTCLOK + 2) = 0;
+
 	char y = 0;
+	*(RTCLOK + 2) = 0;
 	while (*(RTCLOK + 2) < 200) {
 		char *p = lms;
 		for (char x: 0..174) {

@@ -2,7 +2,7 @@
 #include "gr.h"
 #include "atari-system.h"
 
-export char dl8[] = kickasm(
+export char align(0x100) dl8[] = kickasm(
 		uses lms,
 		uses dl8,
 		uses counterLms
@@ -51,13 +51,13 @@ export char dlScore[] = kickasm(
 
 export char dlFire[] = kickasm(
 		uses dlFire,
-		uses fireScreen,
+		uses lms,
 		uses counterLms
 	) {{
 	.byte $f0, $70, $70
 	.byte $42, counterLms, $00
 	.byte $f0
-	.byte $4F, <fireScreen, >fireScreen
+	.byte $42, (<lms) - $10, (>lms) + 4
 	.fill 20, $02
 	.byte $41, <dlFire, >dlFire
 	}};
@@ -164,6 +164,7 @@ interrupt(hardware_clobber) void priorOn() {
 
 interrupt(hardware_clobber) void priorOffFire() {
 	*PRIOR = 0;
+	ANTIC->DMACTL = 0x22;
 
 	// for the scoreboard
 	*CHBASE = >(charset + 0x400);
@@ -178,10 +179,10 @@ interrupt(hardware_clobber) void priorOffFire() {
 
 interrupt(hardware_clobber) void priorOnFire() {
 	*PRIOR = 0x40;
+	ANTIC->DMACTL = 0x21;
 
 	// for the fire
 	*CHBASE = >fireCharset;
-
 
 	asm(clobbers "A") {
 		lda #<priorOffFire

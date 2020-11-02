@@ -28,6 +28,7 @@
 void main() {
 	initSuite();
 
+	runFire();
 	runLandscape();
 	runChessboard();
 	runQR1d();
@@ -41,7 +42,6 @@ void main() {
 	runGuessing();
 	runMd5();
 	runMatrix();
-	//runFire();
 
 	// runLipsum();
 
