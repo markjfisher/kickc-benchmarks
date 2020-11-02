@@ -1,1 +1,1 @@
-void benchmarkSieve1899();
+void runSieve1899();

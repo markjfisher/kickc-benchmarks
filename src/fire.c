@@ -8,6 +8,16 @@
 #include "counter.h"
 #include "gr.h"
 
+void runFire() {
+	memset(lms, 0, 0x1ff0);
+	prepareCounter("Fire demo");
+	counterOn(1);
+	benchmarkFire();
+	counterOn(0);
+	waitFrames(10);
+	counterPrint();
+}
+
 void benchmarkFire() {
 	clearAltScore();
 	*SDMCTL = 0x21;

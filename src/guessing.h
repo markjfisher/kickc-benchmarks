@@ -1,1 +1,1 @@
-void benchmarkGuessing();
+void runGuessing();

@@ -187,8 +187,8 @@ void disableDLI() {
 	__nmien = 0x40;
 }
 
-void waitFrames(char frames) {
-	while(frames != 0) {
+void waitFrames(signed char frames) {
+	while(frames > 0) {
 		waitFrame();
 		frames--;
 	}

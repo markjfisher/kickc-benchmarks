@@ -1,1 +1,1 @@
-void benchmarkMatrix();
+void runMatrix();

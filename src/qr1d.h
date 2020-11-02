@@ -1,1 +1,1 @@
-void benchmarkQR1d();
+void runQR1d();

@@ -6,7 +6,18 @@
 #include "counter.h"
 #include "gr.h"
 
-__ma char qr[] = kickasm {{
+void runQR1d() {
+	memset(lms, 0, 0x1ff0);
+	prepareCounter("QR 1D Array 200 frames");
+	counterOn(1);
+	benchmarkQR1d();
+	counterOn(0);
+	waitFrames(10);
+	counterOverwrite();
+	counterPrint();
+}
+
+char align(0x100) qr[] = kickasm {{
    .byte %11111111,%11111111,%11111111,%11111111,%11100000
    .byte %10000000,%10001010,%01111111,%00100000,%00100000
    .byte %10111110,%10001101,%00000111,%11101111,%10100000

@@ -1,1 +1,1 @@
-void benchmarkChessboard();
+void runChessboard();

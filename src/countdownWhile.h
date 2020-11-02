@@ -1,1 +1,1 @@
-void benchmarkCountdownWhile();
+void runCountdownWhile();

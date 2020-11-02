@@ -1,3 +1,12 @@
+// 8 bit converted md5 calculator
+
+#pragma target(atarixl)
+#pragma encoding(atascii)
+#pragma zp_reserve(0x00..0x7f)
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <stdint.h>
 
 void runMd5() {
@@ -13,14 +22,14 @@ void runMd5() {
 }
 
 void benchmarkMd5() {
-	__ma uint8_t data[512];
+	uint8_t data[512];
 	for (uint16_t i = 0; i < 512; i++) { data[i] = (uint8_t) i; }
-	for (register uint8_t l: 0..4) { md5(data, 512); } 
+	for (uint8_t l: 0..4) { md5(data, 512); } 
 }
 
 #define LEFTROTATE(x, c) (((x) << (c)) | ((x) >> (32 - (c))))
 
-__ma uint32_t h0, h1, h2, h3;
+uint32_t h0, h1, h2, h3;
 
 inline uint16_t mul3(uint8_t a) {
 	return ((uint16_t) a) * 3;
@@ -40,8 +49,7 @@ inline uint8_t mod16(uint16_t a) {
 }
 
 void md5(uint8_t *initial_msg, size_t initial_len) {
-	// TODO: this should be a general pointer and allocated in a full implementation. for benchmarks, using known free area
-	uint8_t const *msg = 0x6000;
+	uint8_t *msg;
 	
 	uint8_t r[] = {7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
                     5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20,
@@ -73,9 +81,7 @@ void md5(uint8_t *initial_msg, size_t initial_len) {
     
     uint16_t new_len = ((((initial_len + 8) / 64) + 1) * 64) - 8;
 
-	// TODO: this leaks memory in Atari as there's no free() implementation.
-	// This should be uncommented in a full md5 implementation. Benchmark is using known free area 0x6000
-    // msg = calloc(new_len + 64, 1);
+    msg = calloc(new_len + 64, 1);
     memcpy(msg, initial_msg, initial_len);
     msg[initial_len] = 128;
     

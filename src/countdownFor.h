@@ -1,1 +1,1 @@
-void benchmarkCountdownFor();
+void runCountdownFor();
