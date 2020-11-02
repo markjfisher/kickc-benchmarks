@@ -1,0 +1,12 @@
+{
+    "description": "Atari XL/XE executable XEX file.",
+    "extension": "xex",
+    "link": "benchmark.ld",
+    "cpu": "MOS6502X",
+    "encoding": "atascii",
+    "defines": {
+        "__ATARIXL__": 1
+    },
+    "emulator": "atari800 -xl",
+    "zp_reserve": ["0..0x7f"]
+}

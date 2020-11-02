@@ -1,8 +1,5 @@
 // 8 bit converted md5 calculator
 
-#pragma target(atarixl)
-#pragma encoding(atascii)
-#pragma zp_reserve(0x00..0x7f)
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,7 +26,10 @@ void benchmarkMd5() {
 
 #define LEFTROTATE(x, c) (((x) << (c)) | ((x) >> (32 - (c))))
 
-uint32_t h0, h1, h2, h3;
+uint32_t h0;
+uint32_t h1;
+uint32_t h2;
+uint32_t h3;
 
 inline uint16_t mul3(uint8_t a) {
 	return ((uint16_t) a) * 3;

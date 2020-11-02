@@ -15,7 +15,7 @@
 .word $02e0, $02e1
 .word %E
 .segmentdef Program [segments="ProgramStart, Code, Data, ProgramEnd"]
-.segmentdef ProgramStart [start=$2000]
+.segmentdef ProgramStart [start=%P]
 .segment ProgramStart
 ProgramStart:
 .segmentdef Code [startAfter="ProgramStart"]

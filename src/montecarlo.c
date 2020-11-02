@@ -1,5 +1,3 @@
-#pragma target(atarixl)
-#pragma encoding(atascii)
 
 #include "atari-system.h"
 #include "counter.h"

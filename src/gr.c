@@ -1,5 +1,3 @@
-#pragma target(atarixl)
-#pragma encoding(atascii)
 
 #include "gr.h"
 #include "atari-system.h"

@@ -1,5 +1,3 @@
-#pragma target(atarixl)
-#pragma encoding(atascii)
 
 #include <atari-xl.h>
 #include <string.h>
