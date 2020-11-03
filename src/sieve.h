@@ -2,3 +2,4 @@
 char * const sieveFlags = 0x6000; // 8k (0x2000) bytes for sieve table
 
 void clearSieveData();
+void clearSieveDataAsm();

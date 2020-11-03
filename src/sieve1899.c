@@ -24,8 +24,8 @@ void runSieve1899() {
 word benchmarkSieve1899() {
 	word k, prime;
 	word count = 0;
-	for (char loop: 9..0) {
-		clearSieveData();
+	for (char loop: 0..9) {
+		clearSieveDataAsm();
 		count = 0;
 		word i = 0;
 		for (word i = 0; i < 0x2000; i++) {

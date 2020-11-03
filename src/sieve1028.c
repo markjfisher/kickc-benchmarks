@@ -25,7 +25,7 @@ word benchmarkSieve1028() {
 	word count = 0;
 	word k;
 	for (char loop: 0..9) {
-		clearSieveData();
+		clearSieveDataAsm();
 		for (char n: 2..91) {
 			if (sieveFlags[n] != 0) {
 				for (k = n << 1; k < 0x2000; k += n) {
