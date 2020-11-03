@@ -1,6 +1,7 @@
 
 #include <atari-xl.h>
 #include <string.h>
+#include <6502.h>
 #include "atari-system.h"
 #include "counter.h"
 #include "gr.h"
@@ -22,25 +23,17 @@ void runSieve1899() {
 
 word benchmarkSieve1899() {
 	word k, prime;
-	char strikeout;
 	word count = 0;
 	for (char loop: 9..0) {
-		memset(sieveFlags, 1, 0x2000);
+		clearSieveData();
 		count = 0;
 		word i = 0;
-		strikeout = 1;
 		for (word i = 0; i < 0x2000; i++) {
 			if (sieveFlags[i] != 0) {
 				prime = 3 + i * 2;
 				count++;
-				if (strikeout != 0) {
-					if (prime > 127) {
-						strikeout = 0;
-					} else {
-						for (k = i + prime; k < 0x2000; k += prime) {
-							sieveFlags[k] = 0;
-						}
-					}
+				for (k = i + prime; k < 0x2000; k += prime) {
+					sieveFlags[k] = 0;
 				}
 			}
 		}
