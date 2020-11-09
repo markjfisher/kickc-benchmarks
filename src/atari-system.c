@@ -26,7 +26,7 @@ void systemOffB(char port_b) {
 		lda #0
 		sta NMIEN
 
-		lda #port_b
+		lda port_b
 		sta PORTB
 
 		lda #<nmi
@@ -89,9 +89,9 @@ void enableVBLI(void *vblptr) {
 		lda #0
 		sta NMIEN
 
-		lda #<vblptr
+		lda vblptr
 		sta systemOffB.vblvec
-		lda #>vblptr
+		lda vblptr+1
 		sta systemOffB.vblvec+1
 
 		lda __nmien
@@ -147,9 +147,9 @@ void enableDLI(void *dliptr) {
 		lda #0
 		sta NMIEN
 
-		lda #<dliptr
+		lda dliptr
 		sta systemOffB.dlivec
-		lda #>dliptr
+		lda dliptr+1
 		sta systemOffB.dlivec+1
 
 		lda __nmien
@@ -166,9 +166,9 @@ void enableDLI2(void *dliptr) {
 		lda #0
 		sta NMIEN
 
-		lda #<dliptr
+		lda dliptr
 		sta systemOffB.dlivec
-		lda #>dliptr
+		lda dliptr+1
 		sta systemOffB.dlivec+1
 
 		lda __nmien
