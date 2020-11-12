@@ -21,7 +21,7 @@ void benchmarkFire() {
 	clearAltScore();
 	*SDMCTL = 0x21;
 
-	enableDLI2(&priorOffFire);
+	enableDLI(&priorOffFire);
 	modeFire();
 	*PRIOR = 0x40;
 	GTIA->COLBK = 0x20;

@@ -24,7 +24,7 @@ void clearAltScore() {
 	memset(scoreA0, 0, 5);
 }
 
-interrupt(hardware_clobber) void vblCounter() {
+void vblCounter() {
 	if (counterOnValue != 0) {
 		(*scoreD4)++;
 		if (*scoreD4 == 10) { *scoreD4 = 0; (*scoreD3)++; }

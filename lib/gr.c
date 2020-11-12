@@ -1,4 +1,3 @@
-
 #include "gr.h"
 #include "atari-system.h"
 
@@ -63,54 +62,26 @@ export char dlFire[] = kickasm(
 	}};
 
 void mode8() {
-	asm {
-		lda #<dl8
-		sta DLIST
-		lda #>dl8
-		sta DLIST+1
-	}
+	*DLIST = dl8;	
 }
 
 void mode4() {
-	asm {
-		lda #<dl4
-		sta DLIST
-		lda #>dl4
-		sta DLIST+1
-	}
+	*DLIST = dl4;
 }
 
 void modeFire() {
-	asm {
-		lda #<dlFire
-		sta DLIST
-		lda #>dlFire
-		sta DLIST+1
-	}
+	*DLIST = dlFire;
 }
 
 void counterRow() {
-	asm {
-		lda #<dlCounter
-		sta DLIST
-		lda #>dlCounter
-		sta DLIST+1
-	}
+	*DLIST = dlCounter;
 }
 
 void showScore() {
 	waitFrame();
-
 	// change back to main charset, should be 0x8000, so high byte = 0x80
 	*CHBASE = >charset;
-	
-	asm {
-		lda #<dlScore
-		sta DLIST
-		lda #>dlScore
-		sta DLIST+1
-	}
-
+	*DLIST = dlScore;	
 }
 
 char * strToCode(char *s) {
@@ -141,53 +112,30 @@ char convertAtasciiToCode(char c) {
 	return noInverse | inverseBit;
 }
 
-interrupt(hardware_clobber) void priorOff() {
+void priorOff() {
 	*PRIOR = 0;
-
-	asm(clobbers "A") {
-		lda #<priorOn
-		sta systemOffB.dlivec
-		lda #>priorOn
-		sta systemOffB.dlivec+1
-	}
+	setDLI(&priorOn);
 }
 
-interrupt(hardware_clobber) void priorOn() {
+void priorOn() {
 	*PRIOR = 0x40;
-	asm(clobbers "A") {
-		lda #<priorOff
-		sta systemOffB.dlivec
-		lda #>priorOff
-		sta systemOffB.dlivec+1
-	}
+	setDLI(&priorOff);
 }
 
-interrupt(hardware_clobber) void priorOffFire() {
+void priorOffFire() {
 	*PRIOR = 0;
 	ANTIC->DMACTL = 0x22;
 
 	// for the scoreboard
 	*CHBASE = >(charset + 0x400);
-
-	asm(clobbers "A") {
-		lda #<priorOnFire
-		sta systemOffB.dlivec
-		lda #>priorOnFire
-		sta systemOffB.dlivec+1
-	}
+	setDLI(&priorOnFire);
 }
 
-interrupt(hardware_clobber) void priorOnFire() {
+void priorOnFire() {
 	*PRIOR = 0x40;
 	ANTIC->DMACTL = 0x21;
 
 	// for the fire
 	*CHBASE = >fireCharset;
-
-	asm(clobbers "A") {
-		lda #<priorOffFire
-		sta systemOffB.dlivec
-		lda #>priorOffFire
-		sta systemOffB.dlivec+1
-	}
+	setDLI(&priorOffFire);
 }
