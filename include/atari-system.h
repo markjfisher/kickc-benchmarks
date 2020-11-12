@@ -30,7 +30,7 @@ char * const PORTB = 0xD301;
 // Display list pointer. Tells the OS the address of the display list
 // instructions about what screen mode(s) to display and where to
 // find the screen data. See also shadow register SDLIST ($230, $231).
-word * const DLIST = 0xD402;
+char** const DLIST = 0xD402;
 
 // (W) Character base address; the location of the start of the
 // character set, either the standard Atari set or a user-designed set.
@@ -39,16 +39,16 @@ word * const DLIST = 0xD402;
 char * const CHBASE = 0xD409;
 
 // Non Maskable Interrupt Status - holds cause for the NMI interrupt in BITs 5, 6 and 7
-void * const NMIST  = 0xD40F;
+char * const NMIST  = 0xD40F;
 
 // Non Maskable Interrupt Reset - Reset for NMIST. Clears the interrupt request register and resets all of the NMI status together
 void * const NMIRES = 0xD40F;
 
 void * const ATARI_CHARSET = 0xE000;
 
-void * const NMIVEC = 0xFFFA;
-void * const RESVEC = 0xFFFC;
-void * const IRQVEC = 0xFFFE;
+void()** const NMIVEC = 0xFFFA;
+void()** const RESVEC = 0xFFFC;
+void()** const IRQVEC = 0xFFFE;
 
 const char PORTB_SELFTEST_OFF = %10000000;
 const char PORTB_BASIC_OFF    = %00000010;
@@ -68,7 +68,7 @@ void systemReset();
 
 // Enable and set custom handler for Vertical Blank Interrupt.
 // To set vertical blank interrupt vector from your inline assembly code
-void enableVBLI(void *vblptr);
+void enableVBLI(void()* vblptr) ;
 
 // Disables custom routine of Vertical Blank Interrupt
 void disableVBLI();
@@ -80,11 +80,13 @@ void enableIRQ();
 void disableIRQ();
 
 // Set IRQ Interrupt Vector
-void setIRQ(void *irqptr);
+void setIRQ(void()* irqptr);
 
 // Enable and set custom handler for Display List Interrupt
-void enableDLI(void *dliptr);
-void enableDLI2(void *dliptr);
+void enableDLI(void()* dliptr);
+
+// Set custom handler for Display List Interrupt
+void setDLI(void()* dliptr);
 
 // Disables Display List Interrupts
 void disableDLI();
