@@ -33,7 +33,7 @@ void()* volatile __vblvec;
 void()* volatile __dlivec;
 
 // The NMI interrupt routine. Calls the respective Display List Code or Vertical Blank Code
-interrupt(hardware_stack) void nmi() {
+interrupt(hardware_clobber) void nmi() {
 	if(*NMIST&0x80) {
 		// Display List (DLI) Interrupt
 		(*__dlivec)();
@@ -47,7 +47,7 @@ interrupt(hardware_stack) void nmi() {
 }
 
 // Empty interrupt routine - for doing nothing
-interrupt(hardware_stack) void irq_empty() {
+interrupt(hardware_clobber) void irq_empty() {
 	kickasm {{ 
 		// do nothing
 	}}
@@ -132,7 +132,7 @@ void waitFrames(signed char frames) {
 }
 
 inline void waitFrame() {
-	char * frame = RTCLOK[2];
+	char frame = RTCLOK[2];
 	while(RTCLOK[2]==frame) ;
 }
 
