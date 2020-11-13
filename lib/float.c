@@ -4,6 +4,7 @@
 // but after discovering constants errors in r22 and a1, and a patch
 // later suggested in Dr Dobbs journal, used the version at:
 // http://www.easy68k.com/paulrsm/6502/WOZFPIA.TXT
+// BUT! this version has a const wrong too, so using a mixture of both sources.
 
 __ma uint8_t __fp_sign = 0;
 __ma uint8_t __fp_x2[1];
