@@ -8,7 +8,7 @@
 
 void runFire() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("Flames GTIA 250 frames");
+	prepareCounter("Flames GTIA 250 frames    \x1c");
 	counterOn(1);
 	benchmarkFire();
 	counterOn(0);

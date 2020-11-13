@@ -6,7 +6,7 @@
 
 void runCountdownFor() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("Countdown 2ML: FOR");
+	prepareCounter("Countdown 2ML: FOR        \x1d");
 	counterOn(1);
 	benchmarkCountdownFor();
 	counterOn(0);

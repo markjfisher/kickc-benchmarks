@@ -7,7 +7,7 @@
 
 void runLandscape() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("Quatari Landscape GR9 10x");
+	prepareCounter("Quatari Landscape GR9 10x \x1d");
 	counterOn(1);
 	benchmarkLandscape();
 	counterOn(0);

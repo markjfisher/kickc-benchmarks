@@ -6,7 +6,7 @@
 
 void runChessboard() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("Chessboard GR8 200 frames");
+	prepareCounter("Chessboard GR8 200 frames \x1c");
 	counterOn(1);
 	benchmarkChessboard();
 	counterOn(0);

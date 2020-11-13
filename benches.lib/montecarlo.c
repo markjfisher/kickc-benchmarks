@@ -6,7 +6,7 @@ word * const squares = 0x6000; // reuse the sieve data area
 
 void runMontecarlo() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("Monte Carlo Pi 10K");
+	prepareCounter("Monte Carlo Pi 10K        \x1d");
 	init_squares();
 
 	counterOn(1);

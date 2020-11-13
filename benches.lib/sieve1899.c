@@ -9,7 +9,7 @@
 
 void runSieve1899() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("Sieve 1899 10x");
+	prepareCounter("Sieve 1899 10x            \x1d");
 
 	counterOn(1);
 	word count = benchmarkSieve1899();

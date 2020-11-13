@@ -10,7 +10,7 @@
 
 void runMatrix() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("Matrix 64x64 Trans");
+	prepareCounter("Matrix 64x64 Trans        \x1d");
 
 	counterOn(1);
 	benchmarkMatrix();

@@ -8,7 +8,7 @@
 
 void runMd5() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("MD5 512B 5x");
+	prepareCounter("MD5 512B 5x               \x1d");
 
 	counterOn(1);
 	benchmarkMd5();

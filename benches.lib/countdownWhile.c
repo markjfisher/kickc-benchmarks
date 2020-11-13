@@ -6,7 +6,7 @@
 
 void runCountdownWhile() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("Countdown 2ML: WHILE");
+	prepareCounter("Countdown 2ML: WHILE      \x1d");
 	counterOn(1);
 	benchmarkCountdownWhile();
 	counterOn(0);

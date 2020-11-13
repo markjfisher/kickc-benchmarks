@@ -6,8 +6,10 @@
 #include "counter.h"
 #include "gr.h"
 
+#define BENCHNAME_LEN 28
+
 // The current benchmark's name - has to be 1 larger than the actual max string (25) for the 0 to terminate the string.
-char benchName[26];
+char benchName[BENCHNAME_LEN];
 
 // Where to put the next score, start at scoreLms, then increment row by row when printing
 char *currentPrintPosition = scoreLms;
@@ -63,9 +65,9 @@ void prepareCounter(char *name) {
 	*CHBASE = >(charset + 0x400);
 
 	// copy name into benchName, preserving the original string
-	memset(benchName, 0, 26);
+	memset(benchName, 0, BENCHNAME_LEN);
 	word len = strlen(name);
-	if (len > 25) len = 25; // ensure there's a zero at the end
+	if (len > (BENCHNAME_LEN - 1)) len = (BENCHNAME_LEN - 1); // ensure there's a zero at the end
 	memcpy(benchName, name, len);
 	// change and fix the atascii string to be displayable in our charset where spaces are at 0xfe, and rest have to be antic codes.
 	strToCode(benchName);
@@ -84,12 +86,12 @@ void counterPrint() {
 	char *position = currentPrintPosition;
 	
 	// benchName was changed to be displayed on 2nd charset where spaces are 0xfe, so change them back
-	for (char i: 0..24) {
+	for (char i: 0..(BENCHNAME_LEN - 1)) {
 		if (*(benchName + i) == 0xfe) *(benchName + i) = 0;
 	}
 
-	memcpy(position, benchName, 25);
-	position += 26;
+	memcpy(position, benchName, BENCHNAME_LEN - 1);
+	position += BENCHNAME_LEN;
 	for(char i: 0..4) {
 		// this adjusts for the charset differences. counterLms has binary 0 for "0",
 		// but to display in original charset, add 16 to get to antic codes 16..25 for "0" to "9"

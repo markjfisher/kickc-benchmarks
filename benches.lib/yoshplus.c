@@ -3,7 +3,7 @@
 
 void runYoshplus() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("YoshPlus 100 frames");
+	prepareCounter("YoshPlus 100 frames       \x1c");
 	counterOn(1);
 	char c = benchmarkYoshplus();
 	counterOn(0);

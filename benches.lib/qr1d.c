@@ -6,7 +6,7 @@
 
 void runQR1d() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("QR 1D Array 200 frames");
+	prepareCounter("QR 1D Array 200 frames    \x1c");
 	counterOn(1);
 	benchmarkQR1d();
 	counterOn(0);

@@ -5,7 +5,7 @@
 
 void runBsort() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("Bubble Sort: 255 elements");
+	prepareCounter("Bubble Sort: 255 elements \x1d");
 	counterOn(1);
 	benchmarkBsort();
 	counterOn(0);

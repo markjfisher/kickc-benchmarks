@@ -3,7 +3,7 @@
 
 void runGuessing() {
 	memset(lms, 0, 0x1ff0);
-	prepareCounter("Guessing game 10x");
+	prepareCounter("Guessing game 10x         \x1d");
 
 	counterOn(1);
 	char d = benchmarkGuessing();
