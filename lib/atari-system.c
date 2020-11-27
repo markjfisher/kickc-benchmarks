@@ -1,5 +1,7 @@
 // Equivalent functions from https://gitlab.com/bocianu/blibs/-/blob/master/b_system.pas
 
+#pragma code_seg(Code)
+
 #include <atari-xl.h>
 #include <6502.h>
 #include "atari-system.h"

@@ -1,3 +1,5 @@
+#pragma code_seg(Code)
+
 #include "atari-system.h"
 #include "counter.h"
 

@@ -1,5 +1,6 @@
-// 8 bit converted md5 calculator
+#pragma code_seg(Code)
 
+// 8 bit converted md5 calculator
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -19,7 +20,7 @@ void runMd5() {
 }
 
 void benchmarkMd5() {
-	uint8_t data[512];
+	uint8_t const * data = 0x6000;
 	for (uint16_t i = 0; i < 512; i++) { data[i] = (uint8_t) i; }
 	for (uint8_t l: 0..4) { md5(data, 512); } 
 }

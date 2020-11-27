@@ -1,4 +1,3 @@
-
 #include <stdlib.h>
 #include <atari-xl.h>
 #include <string.h>
@@ -8,6 +7,8 @@
 
 #define BENCHNAME_LEN 28
 
+#pragma data_seg(Data)
+
 // The current benchmark's name - has to be 1 larger than the actual max string (25) for the 0 to terminate the string.
 char benchName[BENCHNAME_LEN];
 
@@ -16,6 +17,8 @@ char *currentPrintPosition = scoreLms;
 
 // counter on off flag, used in the VBL, so make it volatile
 volatile char counterOnValue = 0;
+
+#pragma code_seg(Code)
 
 // 0 = off, 1 = on
 void counterOn(char onoff) {

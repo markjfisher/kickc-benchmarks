@@ -1,3 +1,4 @@
+#pragma code_seg(Code)
 
 #include <atari-xl.h>
 #include <string.h>

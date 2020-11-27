@@ -1,7 +1,7 @@
 // Main Benchmark Starting Unit
 
 #pragma target(benchmark)
-#pragma pc(0x1000)
+#pragma code_seg(Code)
 
 #include <string.h>
 #include <atari-xl.h>

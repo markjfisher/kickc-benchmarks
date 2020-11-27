@@ -1,3 +1,4 @@
+#pragma code_seg(Code)
 
 #include <atari-xl.h>
 #include "counter.h"
@@ -14,7 +15,7 @@ void runBsort() {
 }
 
 void benchmarkBsort() {
-	char align(0x100) sortTable[255];
+	char * const sortTable = 0x6000;
 	// Make the test repeatable by actually initialising, rather than using kickasm fill
 	for(char i: 0..254) {
 		sortTable[i] = 0xff - i;

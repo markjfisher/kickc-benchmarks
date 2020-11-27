@@ -1,3 +1,4 @@
+#pragma code_seg(Code)
 
 #include <stdint.h>
 #include <stdlib.h>

@@ -1,7 +1,9 @@
+#pragma data_seg(DList)
+
 #include "gr.h"
 #include "atari-system.h"
 
-export align(0x100) char dl8[] = {
+export char dl8[] = {
 	0xf0, 0x70, 0x70,
 	0x42, counterLms, 0x00,
 	0xf0,
@@ -30,7 +32,7 @@ export align(0x100) char dl8[] = {
 	0x41, <dl8, >dl8
 	};
 
-export align(0x100) char dl4[] = {
+export char dl4[] = {
 	0x70, 0x70, 0x70,
 	0x42, counterLms, 0x00,
 	0x70,
@@ -42,13 +44,13 @@ export align(0x100) char dl4[] = {
 	0x41, <dl4, >dl4
 	};
 
-export align(0x100) char dlCounter[] = {
+export char dlCounter[] = {
 	0x70, 0x70, 0x70,
 	0x42, counterLms, 0x00,
 	0x41, <dlCounter, >dlCounter
 	};
 
-export align(0x100) char dlScore[] = {
+export char dlScore[] = {
 	0x70, 0x70, 0x70,
 	0x42, <scoreLms, >scoreLms,
 	0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 
@@ -57,7 +59,7 @@ export align(0x100) char dlScore[] = {
 	0x41, <dlScore, >dlScore,
 	};
 
-export align(0x100) char dlFire[] = {
+export char dlFire[] = {
 	0xf0, 0x70, 0x70,
 	0x42, counterLms, 0x00,
 	0xf0,
@@ -66,6 +68,8 @@ export align(0x100) char dlFire[] = {
 	0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 0x02, 
 	0x41, <dlFire, >dlFire
 	};
+
+#pragma code_seg(Code)
 
 void mode8() {
 	*DLIST = dl8;	

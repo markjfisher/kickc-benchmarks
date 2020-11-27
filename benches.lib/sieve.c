@@ -1,3 +1,4 @@
+#pragma code_seg(Code)
 #include <stdlib.h>
 
 // This is quicker than the library routine memset by about 40 frames.
