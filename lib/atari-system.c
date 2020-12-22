@@ -35,7 +35,7 @@ void()* volatile __vblvec;
 void()* volatile __dlivec;
 
 // The NMI interrupt routine. Calls the respective Display List Code or Vertical Blank Code
-interrupt(hardware_clobber) void nmi() {
+__interrupt(hardware_clobber) void nmi() {
 	if(*NMIST&0x80) {
 		// Display List (DLI) Interrupt
 		(*__dlivec)();
@@ -49,7 +49,7 @@ interrupt(hardware_clobber) void nmi() {
 }
 
 // Empty interrupt routine - for doing nothing
-interrupt(hardware_clobber) void irq_empty() {
+__interrupt(hardware_clobber) void irq_empty() {
 	kickasm {{ 
 		// do nothing
 	}}
