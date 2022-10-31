@@ -3,7 +3,7 @@
 #include "atari-system.h"
 #include "counter.h"
 
-word * const squares = 0x6000; // reuse the sieve data area
+word * const squares = (word *) 0x6000; // reuse the sieve data area
 
 void runMontecarlo() {
 	memset(lms, 0, 0x1ff0);

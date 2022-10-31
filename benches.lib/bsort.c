@@ -15,7 +15,7 @@ void runBsort() {
 }
 
 void benchmarkBsort() {
-	char * const sortTable = 0x6000;
+	char * const sortTable = (char *) 0x6000;
 	// Make the test repeatable by actually initialising, rather than using kickasm fill
 	for(char i: 0..254) {
 		sortTable[i] = 0xff - i;

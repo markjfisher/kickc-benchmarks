@@ -23,8 +23,8 @@ void runMatrix() {
 
 void benchmarkMatrix() {
 	const uint8_t size = 64;
-	uint8_t * const A = 0xA000;
-	uint8_t * const B = 0xB000;
+	uint8_t * const A = (uint8_t *) 0xA000;
+	uint8_t * const B = (uint8_t *) 0xB000;
 	
 	for (uint8_t y: 0..(size -1)) {
 		for (uint8_t x: 0..(size-1)) {

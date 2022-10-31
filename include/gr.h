@@ -1,10 +1,13 @@
 // Header for graphics dlists and constants.
 
-char * const charset     = 0x8000;
-char * const lms         = 0xa010;
-char * const scoreLms    = 0xe000;
-char * const fireCharset = 0xa000;
-char * const fireScreen  = 0xa410;
+#define HIBYTE(w) BYTE1(w)
+#define LOBYTE(w) BYTE0(w)
+
+char * const charset     = (char *) 0x8000;
+char * const lms         = (char *) 0xa010;
+char * const scoreLms    = (char *) 0xe000;
+char * const fireCharset = (char *) 0xa000;
+char * const fireScreen  = (char *) 0xa410;
 
 void mode8();
 void mode4();

@@ -20,7 +20,7 @@ void runMd5() {
 }
 
 void benchmarkMd5() {
-	uint8_t const * data = 0x6000;
+	const uint8_t * data = (uint8_t *) 0x6000;
 	for (uint16_t i = 0; i < 512; i++) { data[i] = (uint8_t) i; }
 	for (uint8_t l: 0..4) { md5(data, 512); } 
 }

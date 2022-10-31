@@ -29,10 +29,10 @@ void do_nothing() {
 volatile char __nmien = 0;
 
 // Vertical Blank Code Vector - called by nmi() on Vertical Blank (VBL) Interrupt
-void()* volatile __vblvec;
+VEC_TYPE volatile __vblvec;
 
 // Display List Code Vector - called by nmi() on Display List (DLI) Interrupt
-void()* volatile __dlivec;
+VEC_TYPE volatile __dlivec;
 
 // The NMI interrupt routine. Calls the respective Display List Code or Vertical Blank Code
 __interrupt(hardware_clobber) void nmi() {
@@ -74,7 +74,7 @@ void systemOff() {
 
 // Enable and set custom handler for Vertical Blank Interrupt.
 // To set vertical blank interrupt vector from your inline assembly code
-void enableVBLI(void()* vblptr) {
+void enableVBLI(VEC_TYPE vblptr) {
 	waitFrame();
 	*NMIEN = 0;
 	__vblvec = vblptr;
@@ -101,12 +101,12 @@ inline void disableIRQ() {
 	SEI();
 }
 
-inline void setIRQ(void()* irqptr) {
+inline void setIRQ(VEC_TYPE irqptr) {
 	*IRQVEC = irqptr;
 }
 
 // Enable and set custom handler for Display List Interrupt
-void enableDLI(void()* dliptr) {
+void enableDLI(VEC_TYPE dliptr) {
 	waitFrame();
 	*NMIEN = 0;
 	__dlivec = dliptr;
@@ -115,7 +115,7 @@ void enableDLI(void()* dliptr) {
 }
 
 // Set custom handler for Display List Interrupt
-void setDLI(void()* dliptr) {
+void setDLI(VEC_TYPE dliptr) {
 	__dlivec = dliptr;
 }
 

@@ -1,19 +1,19 @@
 // Constant memory locations for score elements
-char * const counterLms = 0x20;
+char * const counterLms = (char *) 0x20;
 
 // score digits on left
-char * const scoreD0 = counterLms;
-char * const scoreD1 = scoreD0 + 1;
-char * const scoreD2 = scoreD1 + 1;
-char * const scoreD3 = scoreD2 + 1;
-char * const scoreD4 = scoreD3 + 1;
+char * const scoreD0 = (char *) counterLms;
+char * const scoreD1 = (char *) (scoreD0 + 1);
+char * const scoreD2 = (char *) (scoreD1 + 1);
+char * const scoreD3 = (char *) (scoreD2 + 1);
+char * const scoreD4 = (char *) (scoreD3 + 1);
 
 // score alt digits on right
-char * const scoreA0 = counterLms + 0x23;
-char * const scoreA1 = scoreA0 + 1;
-char * const scoreA2 = scoreA1 + 1;
-char * const scoreA3 = scoreA2 + 1;
-char * const scoreA4 = scoreA3 + 1;
+char * const scoreA0 = (char *) (counterLms + 0x23);
+char * const scoreA1 = (char *) (scoreA0 + 1);
+char * const scoreA2 = (char *) (scoreA1 + 1);
+char * const scoreA3 = (char *) (scoreA2 + 1);
+char * const scoreA4 = (char *) (scoreA3 + 1);
 
 // The VBL routine for incrementing the benchmark counter timer
 void vblCounter();

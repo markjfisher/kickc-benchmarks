@@ -65,7 +65,7 @@ void prepareCounter(char *name) {
 	counterRow();
 
 	// Use our 2nd copy of the characterset with changed values for displaying numbers and spaces.
-	*CHBASE = >(charset + 0x400);
+	*CHBASE = HIBYTE(charset + 0x400);
 
 	// copy name into benchName, preserving the original string
 	memset(benchName, 0, BENCHNAME_LEN);
@@ -132,11 +132,11 @@ void double_dabble(word n, char *digits) {
 	char scratch[6];   // nscratch + 1
 	char smin = 3;     // nscratch - 2
 	
-	char j, k;
+	//char j, k;
 
 	for(char i: 0..5) scratch[i] = 0;
 	
-	for(j: 0..15) {
+	for(char j: 0..15) {
 		// this will be shifted in on the right
 		word sh = 1 << (15 - j);
 		word v = n & sh;
